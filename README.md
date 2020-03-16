@@ -1,6 +1,6 @@
 # Graduate design tutor selection tool
 
-![](https://img.shields.io/badge/language-java-orange.svg) [![](https://img.shields.io/badge/license-MIT-green.svg)](#License)
+[![](https://img.shields.io/badge/language-java-orange.svg)](https://www.oracle.com/java/) [![](https://img.shields.io/badge/license-MIT-green.svg)](#License)
 
 ## Table of Contents
 
