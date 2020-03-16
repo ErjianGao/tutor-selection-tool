@@ -1,6 +1,10 @@
 # Graduate design tutor selection tool
 
-[![](https://img.shields.io/badge/language-java-orange.svg)](https://www.oracle.com/java/) [![](https://img.shields.io/badge/license-MIT-green.svg)](#License)
+<a href="https://www.oracle.com/java/" target="_blank"><img src="https://img.shields.io/badge/language-java-orange.svg"></a>
+<a href="#License"><img src="https://img.shields.io/badge/license-MIT-green.svg"></a>
+
+<a href="" target="_blank"><img src="https://visitor-count-badge.herokuapp.com/today.svg?repo_id=ErjianGao.tutor-selection-tool"></a>
+<a href=""><img src="https://visitor-count-badge.herokuapp.com/total.svg?repo_id=ErjianGao.tutor-selection-tool"></a>
 
 ## Table of Contents
 
