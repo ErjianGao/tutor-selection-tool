@@ -1,13 +1,13 @@
-package com.erjiangao.instructorselectionsystem;
+package com.erjiangao.tutorselectiontool;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class InstructorSelectionSystemApplication {
+public class TutorSelectionToolApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(InstructorSelectionSystemApplication.class, args);
+        SpringApplication.run(TutorSelectionToolApplication.class, args);
     }
 
 }

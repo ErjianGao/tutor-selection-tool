@@ -1,10 +1,10 @@
-package com.erjiangao.instructorselectionsystem;
+package com.erjiangao.tutorselectiontool;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class InstructorSelectionSystemApplicationTests {
+class TutorSelectionToolApplicationTests {
 
     @Test
     void contextLoads() {
