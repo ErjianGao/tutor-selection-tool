@@ -1,7 +1,8 @@
 package com.erjiangao.tutorselectiontool.Repository;
 
 import com.erjiangao.tutorselectiontool.entity.Teacher;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface TeacherRepository extends JpaRepository<Teacher, Integer> {
+@Repository
+public interface TeacherRepository extends BaseRepository<Teacher, Integer> {
 }

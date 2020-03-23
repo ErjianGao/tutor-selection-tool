@@ -1,7 +1,8 @@
 package com.erjiangao.tutorselectiontool.Repository;
 
 import com.erjiangao.tutorselectiontool.entity.DirectionSelection;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface DirectionSelectionRepository extends JpaRepository<DirectionSelection, Integer> {
+@Repository
+public interface DirectionSelectionRepository extends BaseRepository<DirectionSelection, Integer> {
 }
