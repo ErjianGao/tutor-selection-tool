@@ -13,7 +13,7 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String studentID;
+    private String studentNumber;
     private String name;
 
     @ManyToOne
