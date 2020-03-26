@@ -1,10 +1,14 @@
-# Graduate design tutor selection tool
+# Graduation design tutor selection tool
 
 <a href="https://www.oracle.com/java/" target="_blank"><img src="https://img.shields.io/badge/language-java-orange.svg"></a>
 <a href="#License"><img src="https://img.shields.io/badge/license-MIT-green.svg"></a>
 
+<!-- 
 <a href=""> <img src="https://visitor-count-badge.herokuapp.com/total.svg?repo_id=ErjianGao.tutor-selection-tool"></a> 
 <a href=""><img src="https://visitor-count-badge.herokuapp.com/today.svg?repo_id=ErjianGao.tutor-selection-tool"></a>
+-->
+
+[中文 Chinese](https://github.com/ErjianGao/tutor-selection-tool/blob/master/README.cn.md)
 
 ## Table of Contents
 
@@ -12,10 +16,10 @@
 - [Features](#features)
     - [For teachers](#for-teachers)
     - [For students](#for-students)
-- [Getting Startted in IDE](#getting-startted-in-ide)
+- [Getting Started in IDE](#getting-started-in-ide)
 - [Development Environment](#development-environment)
     - [Prerequisites](#prerequisites)
-    - [Installation and unsage](#installation-and-unsage)
+    - [Installation and usage](#installation-and-usage)
 - [Deployment Environment](#deployment-environment)
     - [Local](#local)
     - [Remote (not yet)](#remote)
@@ -25,9 +29,9 @@
 
 ## Background
 
-When students are seniors, they need to choose their graduate design tutor to help them complete their graduate design. And the teachers have their rights to determine which students can choose them as tutor. So they can set requirements, and only the students who meet all of the requirements the teacher set can they choose the teacher as their graduate design tutor. And of course, different teachers have different requirements and the maximum of students they can help. 
+When students are seniors, they need to choose their graduation design tutor to help them complete their graduation design. And the teachers have their rights to determine which students can choose them as tutor. So they can set requirements, and only the students who meet all of the requirements the teacher set can they choose the teacher as their graduation design tutor. And of course, different teachers have different requirements and the maximum number of students they can help. 
 
-So the graduate design tutor selection tool is aiming to help students and tutors choose each other conveniently. Further more, this tool will first be tried to be used by Bo Wang, Lecturer in Software Engineering, Northeast Forestry University:school: and his students major in software engineering. 
+So the graduation design tutor selection tool is aiming to help students and tutors choose each other conveniently. Further more, this tool will first be tried to be used by Bo Wang, Lecturer in Software Engineering, Northeast Forestry University:school: and his students.
 
 ## Features
 
@@ -38,41 +42,41 @@ So the graduate design tutor selection tool is aiming to help students and tutor
 
 ### For students
 
-- Submit their information, like GPAs, and directions of graduate design to check whether they can choose this teacher. 
+- Submit their information, like GPAs, and directions of graduation design to check whether they can choose this teacher. 
 
-## Getting Startted in IDE
+## Getting Started in IDE
 
-This project hasn't been deployed in remote server yet, but by doing the following steps, you can get startted in your IDE, and then if you find some bugs or want to add some new features, you can open an issue or submit pull requests. :smiley:
+This project hasn't been deployed in remote server yet, but by doing the following steps, you can get started in your IDE, and then if you find some bugs or want to add some new features, you can open an issue or submit pull requests. :smiley:
 
 ### Prerequisites
 
 The following is required to be installed in your machine
 
 - Java 11 or newer
-- Git commond line tool
+- Git command line tool
 - Your preferable IDE, like Intellij IDEA
-- Maven (strongly recomended, it can help you install the package needed in the project)
+- Maven (strongly recommended, it can help you install the package needed in the project)
 - MySQL 8.0 or newer
 
-### Installation and unsage
+### Installation and usage
 
 1. Click the 'Clone or download' button on the GitHub repository page, and copy the url of the code repository.
 
-2. Open the Git commond line tool and input the following Git commond:
+2. Open the Git command line tool and input the following Git command:
 
    ```git
    git clone <the url you just copyed>
    ```
 
-3. Use your perferable IDE to import this project by importing the Maven pom.xml file.
+3. Use your preferable IDE to import this project by importing the Maven pom.xml file.
 
-   Take Intellij IDEA as an examle:
+   Take Intellij IDEA as an example:
 
    ```
    File -> New -> Project form Exsisted Sourses... -> choose the pom.xml file in the project folder
    ```
 
-4. Use Maven to reimport all the dependences.
+4. Use Maven to reimport all the dependencies.
 
 5. Modify the database configurations in `application.properties`located in `tutor-selection-tool\src\main\resources\`.
 
