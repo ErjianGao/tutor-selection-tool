@@ -1,4 +1,4 @@
-package com.erjiangao.tutorselectiontool.Repository;
+package com.erjiangao.tutorselectiontool.repository;
 
 import com.erjiangao.tutorselectiontool.entity.Direction;
 import org.springframework.stereotype.Repository;

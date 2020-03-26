@@ -1,6 +1,6 @@
 package com.erjiangao.tutorselectiontool;
 
-import com.erjiangao.tutorselectiontool.Repository.impl.BaseRepositoryImpl;
+import com.erjiangao.tutorselectiontool.repository.impl.BaseRepositoryImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;

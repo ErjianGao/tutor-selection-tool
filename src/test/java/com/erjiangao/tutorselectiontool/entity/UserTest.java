@@ -1,7 +1,7 @@
 package com.erjiangao.tutorselectiontool.entity;
 
-import com.erjiangao.tutorselectiontool.Repository.StudentRepository;
-import com.erjiangao.tutorselectiontool.Repository.TeacherRepository;
+import com.erjiangao.tutorselectiontool.repository.StudentRepository;
+import com.erjiangao.tutorselectiontool.repository.TeacherRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

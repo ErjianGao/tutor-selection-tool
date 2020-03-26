@@ -1,6 +1,6 @@
-package com.erjiangao.tutorselectiontool.Repository.impl;
+package com.erjiangao.tutorselectiontool.repository.impl;
 
-import com.erjiangao.tutorselectiontool.Repository.BaseRepository;
+import com.erjiangao.tutorselectiontool.repository.BaseRepository;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 

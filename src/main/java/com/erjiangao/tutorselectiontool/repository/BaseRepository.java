@@ -1,4 +1,4 @@
-package com.erjiangao.tutorselectiontool.Repository;
+package com.erjiangao.tutorselectiontool.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
