@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface ElectiveRepository extends JpaRepository<Elective, Integer> {
-    @Query("SELECT e FROM Elective e")
-    Optional<List<Elective>> list();
+    @Query("SELECT e FROM Elective e WHERE e.student.id=:sid")
+    Optional<List<Elective>> list(int sid);
 }
