@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Transactional
 @Rollback(value = false)
-public class UserTest {
+public class UserRepositoryTest {
     @Autowired
     private StudentRepository studentRepository;
 
