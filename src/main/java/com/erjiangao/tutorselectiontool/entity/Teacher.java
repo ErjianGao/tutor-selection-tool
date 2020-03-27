@@ -1,5 +1,6 @@
 package com.erjiangao.tutorselectiontool.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,12 +10,15 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    // teacher's staff ID in school
+    private String teacherId;
     private String password;
     // the maximum of students the teacher can choose
     private int maxStudentNumber;
