@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -15,6 +16,9 @@ public class Student {
     private int id;
     private String studentNumber;
     private String name;
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false,
+            insertable = false)
+    private LocalDateTime insertTime;
 
     @ManyToOne
     private Teacher teacher;

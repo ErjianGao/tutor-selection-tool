@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -17,6 +18,10 @@ public class Course {
     private float weight;
     private float grade;
     private float cutOffMark;
+
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false,
+            insertable = false)
+    private LocalDateTime insertTime;
 
     @OneToMany(mappedBy = "course")
     private List<Elective> electives;
