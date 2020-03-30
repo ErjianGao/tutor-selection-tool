@@ -30,4 +30,7 @@ public class Teacher {
 
     @OneToMany(mappedBy = "teacher")
     private List<Student> students;
+
+    @OneToMany(mappedBy = "teacher")
+    private List<Course> courses;
 }

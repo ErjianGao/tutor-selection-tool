@@ -27,4 +27,8 @@ public class Course {
 
     @OneToMany(mappedBy = "course")
     private List<Elective> electives;
+
+    // the relationship between teacher and course is oen to many
+    @ManyToOne
+    private Teacher teacher;
 }
