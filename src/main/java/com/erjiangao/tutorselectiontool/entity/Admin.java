@@ -1,8 +1,10 @@
 package com.erjiangao.tutorselectiontool.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
@@ -10,10 +12,8 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
-public class Admin {
-    @Id
-    private int id;
+@AllArgsConstructor
+public class Admin extends User {
+    // administrator can log in by username
     private String username;
-    private String password;
-    private LocalDateTime insertTime;
 }

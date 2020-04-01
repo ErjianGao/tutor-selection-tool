@@ -1,8 +1,6 @@
 package com.erjiangao.tutorselectiontool.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,18 +8,10 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
-@Data
-public class Student {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String studentId;
-    private String name;
-    private String password;
-    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false,
-            insertable = false)
-    private LocalDateTime insertTime;
+@Getter
+@Setter
+public class Student extends User {
+    private String studentIdNo;
 
     @ManyToOne
     private Teacher teacher;
