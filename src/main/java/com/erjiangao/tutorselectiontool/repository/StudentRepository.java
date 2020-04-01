@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface StudentRepository extends JpaRepository<Student, Integer> {
+public interface StudentRepository extends BaseRepository<Student, Integer> {
     @Query("SELECT s FROM Student s WHERE s.studentId=:studentId")
     Optional<Student> findByStudentId(@Param("studentId") String studentId);
 
