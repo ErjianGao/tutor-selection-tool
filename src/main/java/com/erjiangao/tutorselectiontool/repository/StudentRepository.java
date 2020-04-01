@@ -11,8 +11,8 @@ import java.util.Optional;
 
 @Repository
 public interface StudentRepository extends BaseRepository<Student, Integer> {
-    @Query("SELECT s FROM Student s WHERE s.studentId=:studentId")
-    Optional<Student> findByStudentId(@Param("studentId") String studentId);
+    @Query("SELECT s FROM Student s WHERE s.studentIdNo=:studentIdNo")
+    Optional<Student> findByStudentIdNo(@Param("studentId") String studentIdNo);
 
     @Query("SELECT s FROM Student s")
     Optional<List<Student>> list();
