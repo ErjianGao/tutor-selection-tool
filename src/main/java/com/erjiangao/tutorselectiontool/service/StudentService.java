@@ -27,11 +27,6 @@ public class StudentService {
         studentRepository.save(student);
     }
 
-    public Student getStudent(String studentIdNo) {
-        return studentRepository.findByStudentIdNo(studentIdNo)
-                .orElse(null);
-    }
-
     public List<Student> listStudents() {
         return studentRepository.list()
                 .orElse(null);

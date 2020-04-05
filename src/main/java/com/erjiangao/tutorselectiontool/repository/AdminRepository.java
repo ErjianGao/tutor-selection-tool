@@ -9,6 +9,4 @@ import java.util.Optional;
 
 @Repository
 public interface AdminRepository extends BaseRepository<Admin, Integer> {
-    @Query("SELECT admin FROM Admin admin WHERE admin.username=:username")
-    Optional<Admin> findAdminByUsername(@Param("username") String username);
 }

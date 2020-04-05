@@ -15,7 +15,4 @@ public interface TeacherRepository extends BaseRepository<Teacher, Integer> {
 
     @Query("SELECT t FROM Teacher t")
     Optional<List<Teacher>> list();
-
-    @Query("SELECT t FROM Teacher t WHERE t.staffIdNo=:staffIdNo")
-    Optional<Teacher> findTeacherByStaffIdNo(@Param("staffIdNo") String staffIdNo);
 }
