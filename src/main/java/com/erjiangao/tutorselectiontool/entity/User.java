@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 // 继承时使用的建表策略，分别生成父表和子表
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
+    public enum Role {
+        STUDENT, TEACHER, ADMIN
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -27,6 +30,8 @@ public class User {
     // 返回对象时忽略密码属性
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
+    private Role role;
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false,
             insertable = false)
