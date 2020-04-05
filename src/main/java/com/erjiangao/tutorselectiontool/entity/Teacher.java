@@ -10,8 +10,6 @@ import java.util.List;
 @Getter
 @Setter
 public class Teacher extends User {
-    // teacher's staff ID in school
-    private String staffIdNo;
     // the maximum of students the teacher can choose
     private int maxStudentNumber;
     // the minimum ranking of student who choose the teacher

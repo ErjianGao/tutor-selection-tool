@@ -1,15 +1,14 @@
 package com.erjiangao.tutorselectiontool.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Course {
@@ -18,7 +17,6 @@ public class Course {
     private int id;
     private String name;
     private float weight;
-    private float grade;
     private float cutOffMark;
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false,

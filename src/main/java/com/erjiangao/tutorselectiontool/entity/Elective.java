@@ -1,20 +1,20 @@
 package com.erjiangao.tutorselectiontool.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Elective {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private float grade;
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false,
             insertable = false)

@@ -11,12 +11,10 @@ import java.util.List;
 @Getter
 @Setter
 public class Student extends User {
-    private String studentIdNo;
-
     @ManyToOne
     private Teacher teacher;
     @OneToMany(mappedBy = "student")
     private List<Elective> electives;
-    @OneToMany(mappedBy = "student")
-    private List<DirectionSelection> directionSelections;
+    @OneToMany
+    private List<Direction> directions;
 }
