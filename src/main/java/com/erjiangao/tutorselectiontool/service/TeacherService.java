@@ -14,7 +14,7 @@ public class TeacherService {
     @Autowired
     private TeacherRepository teacherRepository;
 
-    // Teacher CURD
+    // ----------------Teacher CURD----------------
     public Teacher addTeacher(Teacher teacher) {
         teacherRepository.save(teacher);
         return teacher;
