@@ -1,0 +1,11 @@
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "identityNo": "erjiangao",
+  "password": "erjiangao"
+}
+
+> {% client.global.set("token", response.headers.valueOf("Authorization")); %}
+
+###
