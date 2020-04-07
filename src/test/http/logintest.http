@@ -1,4 +1,4 @@
-GET http://localhost:8080/api/admin/welcome
+GET http://localhost:8080/api/admin
 Accept: application/json
 Authorization: {{token}}
 
@@ -8,7 +8,7 @@ Content-Type: application/json
 
 {
   "identityNo": "erjiangao",
-  "password": "erjiangao"
+  "password": "gaoerjian"
 }
 
 > {% client.global.set("token", response.headers.valueOf("Authorization")); %}

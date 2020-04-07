@@ -1,0 +1,11 @@
+PATCH http://localhost:8080/api/admin/password
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "oldPassword": "erjiangao",
+  "newPassword": "gaoerjian",
+  "confirmNewPassword": "gaoerjian"
+}
+
+### 修改管理员密码

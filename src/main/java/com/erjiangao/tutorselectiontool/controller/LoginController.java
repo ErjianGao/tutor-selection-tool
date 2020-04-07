@@ -20,7 +20,7 @@ import java.util.Map;
 
 @RestController
 // json数据进行传递的规范
-@RequestMapping("/api/")
+@RequestMapping("/api")
 @Slf4j
 public class LoginController {
     @Autowired
@@ -37,7 +37,7 @@ public class LoginController {
     private String roleStudent;
 
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public Map postLogin(@RequestBody User user, HttpServletResponse response) {
         // ofNullable可以返回空对象
         User u = userService.getUser(user.getIdentityNo());
