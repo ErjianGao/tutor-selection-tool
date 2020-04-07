@@ -1,3 +1,8 @@
+GET http://localhost:8080/api/admin/welcome
+Accept: application/json
+Authorization: {{token}}
+
+###
 POST http://localhost:8080/api/login
 Content-Type: application/json
 
