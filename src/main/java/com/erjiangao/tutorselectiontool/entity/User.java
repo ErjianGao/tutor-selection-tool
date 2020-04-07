@@ -1,7 +1,6 @@
 package com.erjiangao.tutorselectiontool.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +16,7 @@ public class User {
     public enum Role {
         STUDENT, TEACHER, ADMIN
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -31,6 +31,8 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    // 角色同样不需要返回给前端，因为前端会通过密钥对获取角色信息
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Role role;
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false,

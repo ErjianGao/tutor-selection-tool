@@ -34,6 +34,7 @@ public class EncryptComponent {
 
     /**
      * 将令牌加密
+     *
      * @param token 令牌（这时刚刚在controller层创建好）
      * @return 加密令牌
      */

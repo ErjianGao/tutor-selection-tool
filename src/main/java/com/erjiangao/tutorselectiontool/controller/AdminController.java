@@ -2,7 +2,6 @@ package com.erjiangao.tutorselectiontool.controller;
 
 import com.erjiangao.tutorselectiontool.component.ResponseComponent;
 import com.erjiangao.tutorselectiontool.entity.Admin;
-import com.erjiangao.tutorselectiontool.entity.User;
 import com.erjiangao.tutorselectiontool.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
