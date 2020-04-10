@@ -1,0 +1,26 @@
+POST http://localhost:8080/api/admin/teachers
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "identityNo": "T201701",
+  "name": "王波"
+}
+
+### 添加老师
+GET http://localhost:8080/api/admin
+Accept: application/json
+Authorization: {{token}}
+
+### 欢迎信息
+PATCH http://localhost:8080/api/admin/password
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "oldPassword": "erjiangao",
+  "newPassword": "gaoerjian",
+  "confirmNewPassword": "gaoerjian"
+}
+
+### 修改管理员密码
