@@ -53,6 +53,10 @@ public class StudentService {
         return students;
     }
 
+    public int countStudents(int tid) {
+        return (int)studentRepository.count();
+    }
+
     public Student updateStudent(Student student) {
         studentRepository.save(student);
         return student;
@@ -85,12 +89,9 @@ public class StudentService {
     }
 
     // ----------------Teacher CURD----------------
-    public Teacher setTeacher(int sid, int tid) {
-        Teacher teacher = teacherRepository.findById(tid)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                        "您选择的老师不存在"));
-        Student student = studentRepository.findById(sid)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+    public Teacher selectTeacher(int sid, int tid) {
+        Teacher teacher = teacherRepository.findById(tid).orElse(null);
+        Student student = studentRepository.findById(sid).orElse(null);
         student.setTeacher(teacher);
         studentRepository.save(student);
         return teacher;

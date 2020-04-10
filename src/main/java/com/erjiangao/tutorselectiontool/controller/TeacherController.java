@@ -71,10 +71,16 @@ public class TeacherController {
     @ApiOperation("提前选择学生")
     @PutMapping("/students/{sid}")
     public Map selectStudent(@PathVariable int sid) {
+        Teacher teacher = teacherService.getTeacher(responseComponent.getUid());
         if (studentService.getStudent(responseComponent.getUid()) == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "抱歉，您添加的学生不存在");
         }
-        studentService.setTeacher(sid, responseComponent.getUid());
+
+        int countStudents = studentService.countStudents(responseComponent.getUid());
+        if (countStudents >= teacher.getMaxStudentNumber()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "您的学生选择数量已达上限");
+        }
+        studentService.selectTeacher(sid, responseComponent.getUid());
         Student student = studentService.getStudent(sid);
         return Map.of("student", student);
     }
@@ -102,6 +108,13 @@ public class TeacherController {
         List<Student> students = studentService.listStudents(responseComponent.getUid());
         return Map.of("students", students);
     }
+
+    @ApiOperation("查询有多少学生互选成功")
+    @GetMapping("/students")
+    public Map countStudents() {
+        return Map.of("studentCount", studentService.countStudents(responseComponent.getUid()));
+    }
+
 
     // ----------------Teacher----------------
 
