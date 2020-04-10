@@ -26,7 +26,7 @@ public class AdminController {
     // 用户首页
     @GetMapping("")
     public Map welcome() {
-        log.debug("{}", responseComponent.getIdentityNo());
+        log.debug("{}", responseComponent.getUid());
         log.debug("{}", responseComponent.getRole());
         return Map.of("msg", "欢迎光临，管理员");
     }
@@ -37,13 +37,13 @@ public class AdminController {
         String newPassword = admin.get("newPassword");
         String confirmNewPassword = admin.get("confirmNewPassword");
         if (!encoder.matches(oldPassword,
-                userService.getUser(responseComponent.getIdentityNo()).getPassword())) {
+                userService.getUser(responseComponent.getUid()).getPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "您输入的旧密码错误");
         }
         if (!newPassword.equals(confirmNewPassword)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "你前后两次输入密码不同");
         }
-        Admin a = userService.updatePassword(responseComponent.getIdentityNo(), newPassword);
+        Admin a = userService.updatePassword(responseComponent.getUid(), newPassword);
         return Map.of("admin", a);
     }
 }

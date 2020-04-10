@@ -26,7 +26,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 .map(auth -> encryptors.decryptToken(auth))
                 .ifPresentOrElse(token -> {
                     // 只要能拿到request对象就能知道人员是谁
-                    request.setAttribute(MyToken.IDENTITY_NO, token.getIdentityNo());
+                    request.setAttribute(MyToken.UID, token.getUid());
                     request.setAttribute(MyToken.ROLE, token.getRole());
                 }, () -> {
                     throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "您还没有登录");

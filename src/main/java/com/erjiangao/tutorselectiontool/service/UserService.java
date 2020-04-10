@@ -19,8 +19,13 @@ public class UserService {
     @Autowired
     private PasswordEncoder encoder;
 
-    public User getUser(String idNo) {
-        return userRepository.findUserByIdentityNo(idNo).orElse(null);
+    public User getUser(String identityNo) {
+        return userRepository.findUserByIdentityNo(identityNo).orElse(null);
+    }
+
+    public User getUser(int uid) {
+        return userRepository.findUserById(uid)
+                .orElse(null);
     }
 
     // ----------------Admin CURD----------------
@@ -28,8 +33,8 @@ public class UserService {
         adminRepository.save(admin);
     }
 
-    public Admin updatePassword(String idNo, String newPwd) {
-        Admin admin = adminRepository.findAdminByIdentityNo(idNo)
+    public Admin updatePassword(int uid, String newPwd) {
+        Admin admin = adminRepository.findById(uid)
                 .orElseThrow();
         admin.setPassword(encoder.encode(newPwd));
         return admin;

@@ -46,7 +46,8 @@ public class LoginController {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "用户名密码错误");
         }
         log.debug("{} login successfully", u.getName());
-        MyToken token = new MyToken(u.getIdentityNo(), u.getRole());
+        // 此时应该将用户的id（主键存入token）
+        MyToken token = new MyToken(u.getId(), u.getRole());
         String auth = encryptComponent.encryptToken(token);
         // 放到响应头中传给客户端，使用HttpRespond
         response.setHeader(MyToken.AUTHORIZATION, auth);
@@ -54,11 +55,9 @@ public class LoginController {
         String roleCode = "";
         if (u.getRole().equals(User.Role.ADMIN)) {
             roleCode = roleAdmin;
-        }
-        if (u.getRole().equals(User.Role.TEACHER)) {
+        } else if (u.getRole().equals(User.Role.TEACHER)) {
             roleCode = roleTeacher;
-        }
-        if (u.getRole().equals(User.Role.STUDENT)) {
+        } else if (u.getRole().equals(User.Role.STUDENT)) {
             roleCode = roleStudent;
         }
         return Map.of("role", roleCode);

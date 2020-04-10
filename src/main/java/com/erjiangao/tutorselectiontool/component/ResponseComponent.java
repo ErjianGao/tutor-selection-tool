@@ -7,9 +7,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 
 @Component
 public class ResponseComponent {
-    public String getIdentityNo() {
-        return (String) RequestContextHolder.currentRequestAttributes()
-                .getAttribute("identityNo", RequestAttributes.SCOPE_REQUEST);
+    public int getUid() {
+        return (int) RequestContextHolder.currentRequestAttributes()
+                .getAttribute("uid", RequestAttributes.SCOPE_REQUEST);
     }
 
     public User.Role getRole() {
