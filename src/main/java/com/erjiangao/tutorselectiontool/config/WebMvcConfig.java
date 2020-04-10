@@ -1,4 +1,4 @@
-package com.erjiangao.tutorselectiontool;
+package com.erjiangao.tutorselectiontool.config;
 
 import com.erjiangao.tutorselectiontool.Interceptor.AdminInterceptor;
 import com.erjiangao.tutorselectiontool.Interceptor.LoginInterceptor;
