@@ -1,13 +1,14 @@
 package com.erjiangao.tutorselectiontool.service;
 
-import com.erjiangao.tutorselectiontool.entity.Direction;
-import com.erjiangao.tutorselectiontool.entity.Student;
-import com.erjiangao.tutorselectiontool.repository.DirectionRepository;
-import com.erjiangao.tutorselectiontool.repository.StudentRepository;
+import com.erjiangao.tutorselectiontool.entity.*;
+import com.erjiangao.tutorselectiontool.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,6 +18,10 @@ public class StudentService {
     private StudentRepository studentRepository;
     @Autowired
     private DirectionRepository directionRepository;
+    @Autowired
+    private TeacherRepository teacherRepository;
+    @Autowired
+    private ElectiveRepository electiveRepository;
 
     // ----------------Student CURD----------------
     public Student getStudent(int sid) {
@@ -29,7 +34,23 @@ public class StudentService {
 
     public List<Student> listStudents() {
         return studentRepository.list()
-                .orElse(null);
+                .orElse(List.of());
+    }
+
+    public List<Student> listStudents(int tid) {
+        return studentRepository.findStudentsByTeacher(tid)
+                .orElse(List.of());
+    }
+
+    public List<Student> listStudentsByCourse(int cid) {
+        List<Elective> electives = electiveRepository.findElectivesByCourse(cid)
+                .orElse(List.of());
+        List<Student> students = new ArrayList<>();
+        electives.forEach(e -> {
+            Student student = e.getStudent();
+            students.add(student);
+        });
+        return students;
     }
 
     public Student updateStudent(Student student) {
@@ -61,5 +82,17 @@ public class StudentService {
     public Direction updateDirection(Direction direction) {
         directionRepository.save(direction);
         return direction;
+    }
+
+    // ----------------Teacher CURD----------------
+    public Teacher setTeacher(int sid, int tid) {
+        Teacher teacher = teacherRepository.findById(tid)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "您选择的老师不存在"));
+        Student student = studentRepository.findById(sid)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+        student.setTeacher(teacher);
+        studentRepository.save(student);
+        return teacher;
     }
 }

@@ -39,7 +39,7 @@ public class CourseService {
 
     public List<Course> listCourses() {
         return courseRepository.list()
-                .orElse(null);
+                .orElse(List.of());
     }
 
     public Course getCourse(int id) {
@@ -84,8 +84,8 @@ public class CourseService {
         courseRepository.save(course);
     }
 
-    public List<Course> listCoursesByTeacherId(int tid) {
-        return courseRepository.list(tid)
-                .orElse(null);
+    public List<Course> listCourses(int tid) {
+        return courseRepository.findCoursesByTeacher(tid)
+                .orElse(List.of());
     }
 }
