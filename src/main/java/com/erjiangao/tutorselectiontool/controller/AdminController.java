@@ -73,25 +73,4 @@ public class AdminController {
         courseService.addCourse(course);
         return Map.of("course", course);
     }
-
-    /**
-     * 管理员更新密码
-     * @param admin 管理员的旧密码，新密码，及确认密码
-     * @return 管理员
-     */
-    @PatchMapping("/password")
-    public Map updatePassword(@RequestBody Map<String, String> admin) {
-        String oldPassword = admin.get("oldPassword");
-        String newPassword = admin.get("newPassword");
-        String confirmNewPassword = admin.get("confirmNewPassword");
-        if (!encoder.matches(oldPassword,
-                userService.getUser(responseComponent.getUid()).getPassword())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "您输入的旧密码错误");
-        }
-        if (!newPassword.equals(confirmNewPassword)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "你前后两次输入密码不同");
-        }
-        Admin a = userService.updatePassword(responseComponent.getUid(), newPassword);
-        return Map.of("admin", a);
-    }
 }
