@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface ElectiveRepository extends BaseRepository<Elective, Integer> {
-    Optional<List<Elective>> findElectivesByCourse_Id(int cid);
+    Optional<List<Elective>> findElectivesByCourse_IdOrderByGradeDesc(int cid);
 
     Optional<List<Elective>> findElectivesByStudent_Id(int sid);
 }
