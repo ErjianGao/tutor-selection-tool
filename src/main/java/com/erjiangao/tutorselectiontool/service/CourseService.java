@@ -52,12 +52,7 @@ public class CourseService {
     }
 
     // ----------------Elective CURD----------------
-    public Elective addElective(int cid, int sid) {
-        Student student = studentService.getStudent(sid);
-        Course course = courseService.getCourse(cid);
-        Elective elective = new Elective();
-        elective.setCourse(course);
-        elective.setStudent(student);
+    public Elective addElective(Elective elective) {
         electiveRepository.save(elective);
         return elective;
     }

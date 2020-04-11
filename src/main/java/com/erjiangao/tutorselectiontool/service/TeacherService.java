@@ -20,6 +20,10 @@ public class TeacherService {
         return teacher;
     }
 
+    public void deleteTeacher(int tid) {
+        teacherRepository.deleteById(tid);
+    }
+
     public Teacher getTeacher(int id) {
         return teacherRepository.findById(id)
                 .orElse(null);
