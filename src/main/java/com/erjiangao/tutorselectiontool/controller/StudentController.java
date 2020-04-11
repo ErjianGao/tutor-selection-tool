@@ -5,7 +5,6 @@ import com.erjiangao.tutorselectiontool.entity.Student;
 import com.erjiangao.tutorselectiontool.entity.Teacher;
 import com.erjiangao.tutorselectiontool.service.StudentService;
 import com.erjiangao.tutorselectiontool.service.TeacherService;
-import com.erjiangao.tutorselectiontool.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,7 +48,11 @@ public class StudentController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "抱歉，该老师已经没有名额了，请立即联系其他老师");
         }
-        studentService.selectTeacher(responseComponent.getUid(), tid);
+        if (studentService.checkQualification(responseComponent.getUid(), tid)) {
+            Student student = studentService.getStudent(responseComponent.getUid());
+            student.setTeacher(teacher);
+            studentService.updateStudent(student);
+        }
         return Map.of("teacher", teacher);
     }
 }

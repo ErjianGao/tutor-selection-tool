@@ -8,6 +8,8 @@ import com.erjiangao.tutorselectiontool.entity.User;
 import com.erjiangao.tutorselectiontool.service.CourseService;
 import com.erjiangao.tutorselectiontool.service.TeacherService;
 import com.erjiangao.tutorselectiontool.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,10 +34,7 @@ public class AdminController {
     @Autowired
     private CourseService courseService;
 
-    /**
-     * 测试用，欢迎页
-     * @return 欢迎信息
-     */
+    @ApiOperation("测试用，欢迎页")
     @GetMapping("")
     public Map welcome() {
         log.debug("{}", responseComponent.getUid());
@@ -43,11 +42,7 @@ public class AdminController {
         return Map.of("msg", "欢迎光临，管理员");
     }
 
-    /**
-     * 添加老师
-     * @param teacher
-     * @return
-     */
+    @ApiOperation("添加老师")
     @PostMapping("/teachers")
     public Map addTeacher(@RequestBody Teacher teacher) {
         if (teacherService.getTeacher(teacher.getId()) != null) {
@@ -60,13 +55,16 @@ public class AdminController {
         return Map.of("teacher", teacher);
     }
 
-    /**
-     * 添加课程
-     * @param course 课程
-     * @return 课程
-     */
+    @ApiOperation("删除老师")
+    @DeleteMapping("/teachers/{tid}")
+    public Map deleteTeacher(@PathVariable int tid) {
+        teacherService.deleteTeacher(tid);
+        return Map.of("msg", "0");
+    }
+
+    @ApiOperation("添加课程")
     @PostMapping("/courses")
-    public Map addCourse(@RequestBody Course course) {
+    public Map addCourse(@RequestBody Course course, @PathVariable String tid) {
         if (courseService.getCourse(course.getId()) != null) {
             throw new ResponseStatusException((HttpStatus.BAD_REQUEST), "该课程已经存在，不必反复添加！");
         }

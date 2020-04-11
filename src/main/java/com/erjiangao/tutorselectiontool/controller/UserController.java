@@ -3,7 +3,9 @@ package com.erjiangao.tutorselectiontool.controller;
 import com.erjiangao.tutorselectiontool.component.ResponseComponent;
 import com.erjiangao.tutorselectiontool.entity.User;
 import com.erjiangao.tutorselectiontool.service.CourseService;
+import com.erjiangao.tutorselectiontool.service.StudentService;
 import com.erjiangao.tutorselectiontool.service.UserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,8 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private StudentService studentService;
     @Autowired
     private PasswordEncoder encoder;
     @Autowired
