@@ -1,0 +1,118 @@
+PUT http://localhost:8080/api/teacher/students/4
+Accept: application/json
+Authorization: {{token}}
+
+### 提前选择
+
+GET http://localhost:8080/api/teacher/students/
+Accept: application/json
+Authorization: {{token}}
+
+### 查看所有学生信息
+GET http://localhost:8080/api/teacher/courses
+Accept: application/json
+Authorization: {{token}}
+
+### 查看所有添加的课程信息
+PATCH http://localhost:8080/api/teacher/requirements/
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "maxStudentNumber": "10",
+  "minRanking": "3"
+}
+
+### 修改教师个人设置
+DELETE http://localhost:8080/api/teacher/students/3
+Accept: application/json
+Authorization: {{token}}
+### 删除学生
+POST http://localhost:8080/api/teacher/courses/8/student/96
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "identityNo": "201702",
+  "name": "夏彤彤"
+}
+
+### 给某课程增加学生
+POST http://localhost:8080/api/teacher/courses/7/student/81
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "identityNo": "201702",
+  "name": "夏彤彤"
+}
+
+### 给某课程增加学生
+POST http://localhost:8080/api/teacher/courses/8/student/98
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "identityNo": "201701",
+  "name": "高尔健"
+}
+
+### 给某课程增加学生
+POST http://localhost:8080/api/teacher/courses/7/student/89
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "identityNo": "201701",
+  "name": "高尔健"
+}
+
+### 给某课程增加学生
+DELETE http://localhost:8080/api/teacher/courses/6
+Accept: application/json
+Authorization: {{token}}
+
+### 删除课程，同时删除选课记录
+POST http://localhost:8080/api/teacher/courses
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "name": "web开发技术",
+  "weight": "0.2",
+  "cutOffMark": "70"
+}
+### 增加课程
+POST http://localhost:8080/api/teacher/courses
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "name": "java程序设计",
+  "weight": "0.5",
+  "cutOffMark": "60"
+}
+
+### 增加课程
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "identityNo": "T201702",
+  "password": "T201702"
+}
+
+> {% client.global.set("token", response.headers.valueOf("Authorization")); %}
+
+### 李莉老师登录
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "identityNo": "T201701",
+  "password": "T201701"
+}
+
+> {% client.global.set("token", response.headers.valueOf("Authorization")); %}
+
+### 王波老师登录

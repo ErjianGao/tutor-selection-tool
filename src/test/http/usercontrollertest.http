@@ -1,0 +1,5 @@
+GET http://localhost:8080/api/courses
+Accept: application/json
+Authorization: {{token}}
+
+### 列出所有课程

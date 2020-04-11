@@ -2,10 +2,10 @@ POST http://localhost:8080/api/login
 Content-Type: application/json
 
 {
-  "identityNo": "erjiangao",
-  "password": "gaoerjian"
+  "identityNo": "201701",
+  "password": "201701"
 }
 
 > {% client.global.set("token", response.headers.valueOf("Authorization")); %}
 
-### 管理员登录
+### 学生登录
