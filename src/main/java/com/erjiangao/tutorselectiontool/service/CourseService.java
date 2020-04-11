@@ -38,8 +38,7 @@ public class CourseService {
     }
 
     public List<Course> listCourses() {
-        return courseRepository.list()
-                .orElse(List.of());
+        return courseRepository.findAll();
     }
 
     public Course getCourse(int id) {
@@ -73,8 +72,8 @@ public class CourseService {
     }
 
     public List<Elective> listElectives(int sid) {
-        return electiveRepository.list(sid)
-                .orElse(null);
+        return electiveRepository.findElectivesByStudent_Id(sid)
+                .orElse(List.of());
     }
 
     // ----------------Teacher select course Service----------------
@@ -85,7 +84,7 @@ public class CourseService {
     }
 
     public List<Course> listCourses(int tid) {
-        return courseRepository.findCoursesByTeacher(tid)
+        return courseRepository.findCoursesByTeacher_Id(tid)
                 .orElse(List.of());
     }
 }

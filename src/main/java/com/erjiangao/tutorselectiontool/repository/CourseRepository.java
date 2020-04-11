@@ -9,8 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface CourseRepository extends BaseRepository<Course, Integer> {
-    @Query("SELECT c FROM Course c")
-    Optional<List<Course>> list();
-
-    Optional<List<Course>> findCoursesByTeacher(int tid);
+    Optional<List<Course>> findCoursesByTeacher_Id(int tid);
 }

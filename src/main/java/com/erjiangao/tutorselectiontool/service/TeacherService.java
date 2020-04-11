@@ -31,8 +31,7 @@ public class TeacherService {
     }
 
     public List<Teacher> listTeachers() {
-        return teacherRepository.list()
-                .orElse(null);
+        return teacherRepository.findAll();
     }
 
     public Teacher updateTeacher(Teacher teacher) {

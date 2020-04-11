@@ -28,22 +28,25 @@ public class StudentService {
         return studentRepository.findById(sid).orElse(null);
     }
 
+    public Student getStudent(String sname) {
+        return studentRepository.findStudentByName(sname).orElse(null);
+    }
+
     public void addStudent(Student student) {
         studentRepository.save(student);
     }
 
     public List<Student> listStudents() {
-        return studentRepository.list()
-                .orElse(List.of());
+        return studentRepository.findAll();
     }
 
     public List<Student> listStudents(int tid) {
-        return studentRepository.findStudentsByTeacher(tid)
+        return studentRepository.findStudentsByTeacher_Id(tid)
                 .orElse(List.of());
     }
 
     public List<Student> listStudentsByCourse(int cid) {
-        List<Elective> electives = electiveRepository.findElectivesByCourse(cid)
+        List<Elective> electives = electiveRepository.findElectivesByCourse_Id(cid)
                 .orElse(List.of());
         List<Student> students = new ArrayList<>();
         electives.forEach(e -> {
@@ -74,13 +77,11 @@ public class StudentService {
     }
 
     public List<Direction> listDirections() {
-        return directionRepository.list()
-                .orElse(null);
+        return directionRepository.findAll();
     }
 
     public List<Direction> listDirections(int sid) {
-        return directionRepository.list()
-                .orElse(null);
+        return directionRepository.findAll();
     }
 
     public Direction updateDirection(Direction direction) {
@@ -92,6 +93,9 @@ public class StudentService {
     public Teacher selectTeacher(int sid, int tid) {
         Teacher teacher = teacherRepository.findById(tid).orElse(null);
         Student student = studentRepository.findById(sid).orElse(null);
+        if (student == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "抱歉，学生信息不存在");
+        }
         student.setTeacher(teacher);
         studentRepository.save(student);
         return teacher;

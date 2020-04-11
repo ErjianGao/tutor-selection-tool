@@ -2,7 +2,7 @@ package com.erjiangao.tutorselectiontool.controller;
 
 import com.erjiangao.tutorselectiontool.component.ResponseComponent;
 import com.erjiangao.tutorselectiontool.entity.Course;
-import com.erjiangao.tutorselectiontool.entity.Elective;
+import com.erjiangao.tutorselectiontool.entity.Direction;
 import com.erjiangao.tutorselectiontool.entity.Student;
 import com.erjiangao.tutorselectiontool.entity.Teacher;
 import com.erjiangao.tutorselectiontool.service.CourseService;
@@ -102,6 +102,12 @@ public class TeacherController {
         return Map.of("students", studentService.listStudentsByCourse(cid));
     }
 
+    @ApiOperation("根据姓名查询学生")
+    @GetMapping("/students/{sname}")
+    public Map getStudent(@PathVariable String sname) {
+        return Map.of("student", studentService.getStudent(sname));
+    }
+
     @ApiOperation("互选成功学生列表")
     @GetMapping("/students")
     public Map listSelectedStudent() {
@@ -109,12 +115,31 @@ public class TeacherController {
         return Map.of("students", students);
     }
 
-    @ApiOperation("查询有多少学生互选成功")
-    @GetMapping("/students")
-    public Map countStudents() {
-        return Map.of("studentCount", studentService.countStudents(responseComponent.getUid()));
+    // ----------------Direction----------------
+
+    @ApiOperation("查看所有学生可选方向")
+    @GetMapping("/directions")
+    public Map listDirections() {
+        return Map.of("directions", studentService.listDirections());
     }
 
+    @ApiOperation("增加方向")
+    @PostMapping("/directions")
+    public Map addDirection(@RequestBody Direction direction) {
+        studentService.listDirections().forEach(d -> {
+            if (d.getName().equals(direction.getName())) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "此方向已经存在了，再换个其他方向吧");
+            }
+        });
+        return Map.of("direction", studentService.addDirection(direction));
+    }
+
+    @ApiOperation("修改方向")
+    @PatchMapping("/directions")
+    public Map updateDirection(@RequestBody Direction direction) {
+        return Map.of("direction", studentService.updateDirection(direction));
+    }
 
     // ----------------Teacher----------------
 

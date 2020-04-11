@@ -9,8 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface ElectiveRepository extends BaseRepository<Elective, Integer> {
-    @Query("SELECT e FROM Elective e WHERE e.student.id=:sid")
-    Optional<List<Elective>> list(int sid);
+    Optional<List<Elective>> findElectivesByCourse_Id(int cid);
 
-    Optional<List<Elective>> findElectivesByCourse(int cid);
+    Optional<List<Elective>> findElectivesByStudent_Id(int sid);
 }

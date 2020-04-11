@@ -9,6 +9,4 @@ import java.util.Optional;
 
 @Repository
 public interface DirectionRepository extends BaseRepository<Direction, Integer> {
-    @Query("SELECT d FROM Direction d")
-    Optional<List<Direction>> list();
 }

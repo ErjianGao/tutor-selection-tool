@@ -24,7 +24,7 @@ public class UserService {
     }
 
     public User getUser(int uid) {
-        return userRepository.findUserById(uid)
+        return userRepository.findById(uid)
                 .orElse(null);
     }
 

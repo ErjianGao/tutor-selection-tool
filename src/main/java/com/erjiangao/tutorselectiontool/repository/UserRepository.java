@@ -6,5 +6,4 @@ import java.util.Optional;
 
 public interface UserRepository extends BaseRepository<User, Integer> {
     Optional<User> findUserByIdentityNo(String identityNo);
-    Optional<User> findUserById(int uid);
 }

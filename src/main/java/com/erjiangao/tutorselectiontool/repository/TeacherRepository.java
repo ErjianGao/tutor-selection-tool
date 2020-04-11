@@ -10,7 +10,4 @@ import java.util.Optional;
 @Repository
 public interface TeacherRepository extends BaseRepository<Teacher, Integer> {
     Optional<Teacher> findTeacherByName(String name);
-
-    @Query("SELECT t FROM Teacher t")
-    Optional<List<Teacher>> list();
 }
