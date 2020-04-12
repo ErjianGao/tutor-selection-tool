@@ -1,4 +1,4 @@
-package com.erjiangao.tutorselectiontool.Interceptor;
+package com.erjiangao.tutorselectiontool.interceptor;
 
 import com.erjiangao.tutorselectiontool.component.EncryptComponent;
 import com.erjiangao.tutorselectiontool.component.MyToken;
