@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +41,7 @@ public class TeacherController {
 
     @ApiOperation("添加课程")
     @PostMapping("/courses")
-    public Map selectCourse(@RequestBody Course course) {
+    public Map selectCourse(@Valid @RequestBody Course course) {
         courseService.listCourses(responseComponent.getUid()).forEach(c -> {
             if (c.getName().equals(course.getName())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
@@ -55,13 +56,15 @@ public class TeacherController {
 
     @ApiOperation("更新课程要求")
     @PatchMapping("/courses")
-    public Map updateCourse(@RequestBody Course course) {
-        if (courseService.getCourse(course.getId()) == null) {
+    public Map updateCourse(@Valid @RequestBody Course course) {
+        Course c = courseService.getCourse(course.getId());
+        if (c == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "抱歉，您想要修改的课程不存在");
         }
-
-        courseService.updateCourse(course);
-        return Map.of("course", course);
+        c.setCutOffMark(course.getCutOffMark());
+        c.setWeight(course.getWeight());
+        courseService.updateCourse(c);
+        return Map.of("course", c);
     }
 
     @ApiOperation("删除课程")
@@ -167,7 +170,7 @@ public class TeacherController {
 
     @ApiOperation("增加方向")
     @PostMapping("/directions")
-    public Map addDirection(@RequestBody Direction direction) {
+    public Map addDirection(@Valid @RequestBody Direction direction) {
         studentService.listDirections().forEach(d -> {
             if (d.getName().equals(direction.getName())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
@@ -179,15 +182,20 @@ public class TeacherController {
 
     @ApiOperation("修改方向")
     @PatchMapping("/directions")
-    public Map updateDirection(@RequestBody Direction direction) {
-        return Map.of("direction", studentService.updateDirection(direction));
+    public Map updateDirection(@Valid @RequestBody Direction direction) {
+        Direction d = studentService.getDirection(direction.getId());
+        if (d == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "该方向不存在");
+        }
+        d.setName(direction.getName());
+        return Map.of("direction", studentService.updateDirection(d));
     }
 
     // ----------------Teacher----------------
 
     @ApiOperation("修改个人要求，如最低成绩，设置人数等")
     @PatchMapping("/requirements/")
-    public Teacher updateRequirements(@RequestBody Teacher teacher) {
+    public Teacher updateRequirements(@Valid @RequestBody Teacher teacher) {
         Teacher t = teacherService.getTeacher(responseComponent.getUid());
         t.setMinRanking(teacher.getMinRanking());
         t.setMaxStudentNumber(teacher.getMaxStudentNumber());

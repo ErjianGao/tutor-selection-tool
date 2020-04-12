@@ -17,7 +17,8 @@ import java.util.List;
 @Setter
 @JsonIgnoreProperties({"electives", "directions"})
 public class Student extends User {
-    // 此属性为学生按照选择导师设置的计算规则计算出的加权成绩
+    // 此属性为学生按照选择导师设置的计算规则计算出的加权成绩，不能直接进行设置
+    // 是通过系统自动计算出来的
     private double weightedGrade;
     private int weightedRank;
 

@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,8 +24,13 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank
     private String name;
+    @Max(value = 1, message = "权重不能大于1")
+    @Min(value = 0, message = "权重不能小于0")
     private float weight;
+    @Max(value = 100, message = "最低分数不能超过100")
+    @Min(value = 0, message = "最低分数不能低于0")
     private float cutOffMark;
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false,

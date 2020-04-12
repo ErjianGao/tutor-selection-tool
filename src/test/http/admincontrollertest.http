@@ -8,6 +8,16 @@ Content-Type: application/json
 Authorization: {{token}}
 
 {
+  "identityNo": "T201703",
+  "name": "罗嗣卿"
+}
+
+### 添加老师
+POST http://localhost:8080/api/admin/teachers
+Content-Type: application/json
+Authorization: {{token}}
+
+{
   "identityNo": "T201702",
   "name": "李莉"
 }
@@ -33,7 +43,7 @@ Content-Type: application/json
 Authorization: {{token}}
 
 {
-  "oldPassword": "erjiangao",
+  "oldPassword": "gaoerjian",
   "newPassword": "gaoerjian",
   "confirmNewPassword": "gaoerjian"
 }

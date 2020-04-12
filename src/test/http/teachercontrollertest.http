@@ -14,13 +14,27 @@ Accept: application/json
 Authorization: {{token}}
 
 ### 查看所有添加的课程信息
+PATCH http://localhost:8080/api/teacher/courses/
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "id": "7",
+  "name": "java程序设计",
+  "weight": "0.3",
+  "cutOffMark": "70"
+}
+
+### 修改课程信息
 PATCH http://localhost:8080/api/teacher/requirements/
 Content-Type: application/json
 Authorization: {{token}}
 
 {
-  "maxStudentNumber": "10",
-  "minRanking": "3"
+  "name": "李莉",
+  "identityNo": "T201702",
+  "maxStudentNumber": "20",
+  "minRanking": "50"
 }
 
 ### 修改教师个人设置
@@ -68,7 +82,7 @@ Authorization: {{token}}
 }
 
 ### 给某课程增加学生
-DELETE http://localhost:8080/api/teacher/courses/6
+DELETE http://localhost:8080/api/teacher/courses/7
 Accept: application/json
 Authorization: {{token}}
 
@@ -78,9 +92,9 @@ Content-Type: application/json
 Authorization: {{token}}
 
 {
-  "name": "web开发技术",
-  "weight": "0.2",
-  "cutOffMark": "70"
+  "name": "计算机组成原理",
+  "weight": "0.05",
+  "cutOffMark": "60"
 }
 ### 增加课程
 POST http://localhost:8080/api/teacher/courses
@@ -91,6 +105,17 @@ Authorization: {{token}}
   "name": "java程序设计",
   "weight": "0.5",
   "cutOffMark": "60"
+}
+
+### 增加课程
+POST http://localhost:8080/api/teacher/courses
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "name": "操作系统",
+  "weight": "0.3",
+  "cutOffMark": "65"
 }
 
 ### 增加课程

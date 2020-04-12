@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,11 +25,15 @@ public class User {
 
     // this is the username needed to be input
     @Column(unique = true)
+    @NotBlank(message = "登录名不能为空")
+    @Size(min = 6, message = "学号长度必须大于等于")
     private String identityNo;
 
+    @NotBlank(message = "姓名不能为空")
     private String name;
 
     // 返回对象时忽略密码属性
+    @Size(min = 6, message = "用户密码长度必须不少于{min}")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 

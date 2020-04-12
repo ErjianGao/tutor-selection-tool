@@ -5,11 +5,11 @@ import com.erjiangao.tutorselectiontool.entity.User;
 import com.erjiangao.tutorselectiontool.service.CourseService;
 import com.erjiangao.tutorselectiontool.service.StudentService;
 import com.erjiangao.tutorselectiontool.service.UserService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -17,6 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
+@Validated
 public class UserController {
     @Autowired
     private CourseService courseService;
