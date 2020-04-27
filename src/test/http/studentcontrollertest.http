@@ -6,6 +6,6 @@ Content-Type: application/json
   "password": "201701"
 }
 
-> {% client.global.set("token", response.headers.valueOf("Authorization")); %}
+> {% client.global.set("token", response.headers.valueOf("authorization")); %}
 
 ### 学生登录

@@ -1,11 +1,11 @@
 DELETE http://localhost:8080/api/admin/teachers/9
 Accept: application/json
-Authorization: {{token}}
+authorization: {{token}}
 
 ### 删除老师
 POST http://localhost:8080/api/admin/teachers
 Content-Type: application/json
-Authorization: {{token}}
+authorization: {{token}}
 
 {
   "identityNo": "T201703",
@@ -15,7 +15,7 @@ Authorization: {{token}}
 ### 添加老师
 POST http://localhost:8080/api/admin/teachers
 Content-Type: application/json
-Authorization: {{token}}
+authorization: {{token}}
 
 {
   "identityNo": "T201702",
@@ -25,7 +25,7 @@ Authorization: {{token}}
 ### 添加老师
 POST http://localhost:8080/api/admin/teachers
 Content-Type: application/json
-Authorization: {{token}}
+authorization: {{token}}
 
 {
   "identityNo": "T201701",
@@ -35,12 +35,12 @@ Authorization: {{token}}
 ### 添加老师
 GET http://localhost:8080/api/admin
 Accept: application/json
-Authorization: {{token}}
+authorization: {{token}}
 
 ### 欢迎信息
 PATCH http://localhost:8080/api/settings/password
 Content-Type: application/json
-Authorization: {{token}}
+authorization: {{token}}
 
 {
   "oldPassword": "gaoerjian",
@@ -57,6 +57,6 @@ Content-Type: application/json
   "password": "gaoerjian"
 }
 
-> {% client.global.set("token", response.headers.valueOf("Authorization")); %}
+> {% client.global.set("token", response.headers.valueOf("authorization")); %}
 
 ### 管理员登录
