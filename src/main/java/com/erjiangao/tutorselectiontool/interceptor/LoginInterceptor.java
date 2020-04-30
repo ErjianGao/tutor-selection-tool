@@ -2,6 +2,7 @@ package com.erjiangao.tutorselectiontool.interceptor;
 
 import com.erjiangao.tutorselectiontool.component.EncryptComponent;
 import com.erjiangao.tutorselectiontool.component.MyToken;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 @Component
+@Slf4j
 public class LoginInterceptor implements HandlerInterceptor {
     @Autowired
     private EncryptComponent encryptors;

@@ -16,7 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/")
 @Validated
 public class UserController {
     @Autowired
@@ -31,13 +31,13 @@ public class UserController {
     private ResponseComponent responseComponent;
 
     @ApiOperation("查看所有开设课程信息")
-    @GetMapping("/courses")
+    @GetMapping("courses")
     public Map listCourses() {
         return Map.of("courses", courseService.listCourses());
     }
 
     @ApiOperation("修改密码")
-    @PatchMapping("/settings/password")
+    @PatchMapping("settings/password")
     public Map updatePassword(@RequestBody Map<String, String> user) {
         String oldPassword = user.get("oldPassword");
         String newPassword = user.get("newPassword");

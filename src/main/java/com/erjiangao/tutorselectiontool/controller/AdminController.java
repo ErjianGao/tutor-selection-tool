@@ -20,7 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api/admin/")
 @Slf4j
 public class AdminController {
     @Autowired
@@ -35,7 +35,7 @@ public class AdminController {
     private CourseService courseService;
 
     @ApiOperation("测试用，欢迎页")
-    @GetMapping("")
+    @GetMapping("home")
     public Map welcome() {
         log.debug("{}", responseComponent.getUid());
         log.debug("{}", responseComponent.getRole());
@@ -43,7 +43,7 @@ public class AdminController {
     }
 
     @ApiOperation("添加老师")
-    @PostMapping("/teachers")
+    @PostMapping("teachers")
     public Map addTeacher(@RequestBody Teacher teacher) {
         if (teacherService.getTeacher(teacher.getId()) != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "该老师已经存在，不必反复添加！");
@@ -56,14 +56,14 @@ public class AdminController {
     }
 
     @ApiOperation("删除老师")
-    @DeleteMapping("/teachers/{tid}")
+    @DeleteMapping("teachers/{tid}")
     public Map deleteTeacher(@PathVariable int tid) {
         teacherService.deleteTeacher(tid);
         return Map.of("msg", "0");
     }
 
     @ApiOperation("添加课程")
-    @PostMapping("/courses")
+    @PostMapping("courses")
     public Map addCourse(@RequestBody Course course, @PathVariable String tid) {
         if (courseService.getCourse(course.getId()) != null) {
             throw new ResponseStatusException((HttpStatus.BAD_REQUEST), "该课程已经存在，不必反复添加！");

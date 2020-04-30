@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/teacher")
+@RequestMapping("/api/teacher/")
 public class TeacherController {
     @Autowired
     private PasswordEncoder encoder;
@@ -33,14 +33,14 @@ public class TeacherController {
     // ----------------Course----------------
 
     @ApiOperation("查看所有添加的课程信息")
-    @GetMapping("/courses")
+    @GetMapping("courses")
     public Map listSelectedCourses() {
         List<Course> courses = courseService.listCourses(responseComponent.getUid());
         return Map.of("courses", courses);
     }
 
     @ApiOperation("添加课程")
-    @PostMapping("/courses")
+    @PostMapping("courses")
     public Map selectCourse(@Valid @RequestBody Course course) {
         courseService.listCourses(responseComponent.getUid()).forEach(c -> {
             if (c.getName().equals(course.getName())) {
@@ -55,7 +55,7 @@ public class TeacherController {
     }
 
     @ApiOperation("更新课程要求")
-    @PatchMapping("/courses")
+    @PatchMapping("courses")
     public Map updateCourse(@Valid @RequestBody Course course) {
         Course c = courseService.getCourse(course.getId());
         if (c == null) {
@@ -68,7 +68,7 @@ public class TeacherController {
     }
 
     @ApiOperation("删除课程")
-    @DeleteMapping("/courses/{cid}")
+    @DeleteMapping("courses/{cid}")
     public Map deleteCourses(@PathVariable int cid) {
         courseService.deleteCourse(cid);
         return Map.of("msg", "0");
@@ -77,13 +77,13 @@ public class TeacherController {
     // ----------------Student----------------
 
     @ApiOperation("查看所有学生")
-    @GetMapping("/students")
+    @GetMapping("students")
     public Map listStudents() {
         return Map.of("students", studentService.listStudents());
     }
 
     @ApiOperation("提前选择学生")
-    @PutMapping("/students/{sid}")
+    @PutMapping("students/{sid}")
     public Map selectStudent(@PathVariable int sid) {
         Teacher teacher = teacherService.getTeacher(responseComponent.getUid());
         if (studentService.getStudent(sid) == null) {
@@ -104,7 +104,7 @@ public class TeacherController {
     }
 
     @ApiOperation("为课程添加学生")
-    @PostMapping("/courses/{cid}/student/{grade}")
+    @PostMapping("courses/{cid}/student/{grade}")
     public Map addStudent(@PathVariable int cid, @RequestBody Student student,
                           @PathVariable double grade) {
         Course course = courseService.getCourse(cid);
@@ -135,26 +135,26 @@ public class TeacherController {
     }
 
     @ApiOperation("删除学生")
-    @DeleteMapping("/students/{sid}")
+    @DeleteMapping("students/{sid}")
     public Map deleteStudent(@PathVariable int sid) {
         studentService.deleteStudent(sid);
         return Map.of("msg", "0");
     }
 
     @ApiOperation("查询某课程学生")
-    @GetMapping("/courses/{cid}/students")
+    @GetMapping("courses/{cid}/students")
     public Map listStudents(@PathVariable int cid) {
         return Map.of("students", studentService.listStudentsByCourse(cid));
     }
 
     @ApiOperation("根据姓名查询学生")
-    @GetMapping("/students/{sname}")
+    @GetMapping("students/{sname}")
     public Map getStudent(@PathVariable String sname) {
         return Map.of("student", studentService.getStudent(sname));
     }
 
     @ApiOperation("互选成功学生列表")
-    @GetMapping("/selectedstudents")
+    @GetMapping("selectedstudents")
     public Map listSelectedStudent() {
         List<Student> students = studentService.listStudents(responseComponent.getUid());
         return Map.of("students", students);
@@ -163,13 +163,13 @@ public class TeacherController {
     // ----------------Direction----------------
 
     @ApiOperation("查看所有学生可选方向")
-    @GetMapping("/directions")
+    @GetMapping("directions")
     public Map listDirections() {
         return Map.of("directions", studentService.listDirections());
     }
 
     @ApiOperation("增加方向")
-    @PostMapping("/directions")
+    @PostMapping("directions")
     public Map addDirection(@Valid @RequestBody Direction direction) {
         studentService.listDirections().forEach(d -> {
             if (d.getName().equals(direction.getName())) {
@@ -181,7 +181,7 @@ public class TeacherController {
     }
 
     @ApiOperation("修改方向")
-    @PatchMapping("/directions")
+    @PatchMapping("directions")
     public Map updateDirection(@Valid @RequestBody Direction direction) {
         Direction d = studentService.getDirection(direction.getId());
         if (d == null) {
@@ -194,7 +194,7 @@ public class TeacherController {
     // ----------------Teacher----------------
 
     @ApiOperation("修改个人要求，如最低成绩，设置人数等")
-    @PatchMapping("/requirements/")
+    @PatchMapping("requirements/")
     public Teacher updateRequirements(@Valid @RequestBody Teacher teacher) {
         Teacher t = teacherService.getTeacher(responseComponent.getUid());
         t.setMinRanking(teacher.getMinRanking());

@@ -14,7 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/student")
+@RequestMapping("/api/student/")
 public class StudentController {
     @Autowired
     private StudentService studentService;
@@ -26,13 +26,13 @@ public class StudentController {
     // ----------------Direction----------------
 
     @ApiOperation("查看个人信息")
-    @GetMapping("/profile")
+    @GetMapping("profile")
     public Map getStudent() {
         return Map.of("student", studentService.getStudent(responseComponent.getUid()));
     }
 
     @ApiOperation("修改个人资料")
-    @PatchMapping("/settings")
+    @PatchMapping("settings")
     public Map updateStudent(@RequestBody Student student) {
         return Map.of("student", studentService.updateStudent(student));
     }
@@ -40,7 +40,7 @@ public class StudentController {
     // ----------------Teacher----------------
 
     @ApiOperation("选择导师")
-    @PatchMapping("/teachers/{tid}")
+    @PatchMapping("teachers/{tid}")
     public Map selectTeacher(@PathVariable int tid) {
         Teacher teacher = teacherService.getTeacher(tid);
         int countStudent = studentService.countStudents(tid);

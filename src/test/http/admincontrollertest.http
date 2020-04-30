@@ -33,7 +33,7 @@ authorization: {{token}}
 }
 
 ### 添加老师
-GET http://localhost:8080/api/admin
+GET http://localhost:8080/api/admin/home
 Accept: application/json
 authorization: {{token}}
 
@@ -54,7 +54,7 @@ Content-Type: application/json
 
 {
   "identityNo": "erjiangao",
-  "password": "gaoerjian"
+  "password": "gaoerjia"
 }
 
 > {% client.global.set("token", response.headers.valueOf("authorization")); %}
