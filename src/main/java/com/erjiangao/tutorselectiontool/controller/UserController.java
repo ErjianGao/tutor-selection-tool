@@ -30,6 +30,12 @@ public class UserController {
     @Autowired
     private ResponseComponent responseComponent;
 
+    @ApiOperation("查看个人信息")
+    @GetMapping("profile")
+    public Map getUser() {
+        return Map.of("user", userService.getUser(responseComponent.getUid()));
+    }
+
     @ApiOperation("查看所有开设课程信息")
     @GetMapping("courses")
     public Map listCourses() {
