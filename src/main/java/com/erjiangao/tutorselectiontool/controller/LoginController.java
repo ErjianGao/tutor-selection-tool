@@ -4,6 +4,9 @@ import com.erjiangao.tutorselectiontool.component.EncryptComponent;
 import com.erjiangao.tutorselectiontool.component.MyToken;
 import com.erjiangao.tutorselectiontool.entity.User;
 import com.erjiangao.tutorselectiontool.service.UserService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 @RestController
 // json数据进行传递的规范
@@ -38,7 +40,9 @@ public class LoginController {
 
 
     @PostMapping("login")
-    public Map postLogin(@RequestBody User user, HttpServletResponse response) {
+    @ApiOperation("登录")
+    @ApiResponses({@ApiResponse(code = 200, message = "返回角色编码")})
+    public String postLogin(@RequestBody User user, HttpServletResponse response) {
         // ofNullable可以返回空对象
         User u = userService.getUser(user.getIdentityNo());
         if (u == null || !encoder.matches(user.getPassword(), u.getPassword())) {
@@ -60,6 +64,6 @@ public class LoginController {
         } else if (u.getRole().equals(User.Role.STUDENT)) {
             roleCode = roleStudent;
         }
-        return Map.of("role", roleCode);
+        return roleCode;
     }
 }

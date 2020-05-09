@@ -33,15 +33,15 @@ public class TeacherController {
     // ----------------Course----------------
 
     @ApiOperation("查看所有添加的课程信息")
-    @GetMapping("courses")
-    public Map listSelectedCourses() {
-        List<Course> courses = courseService.listCourses(responseComponent.getUid());
-        return Map.of("courses", courses);
+    @GetMapping("{tid}/courses")
+    public List<Course> listSelectedCourses(@PathVariable int tid) {
+        List<Course> courses = courseService.listCourses(tid);
+        return courses;
     }
 
     @ApiOperation("添加课程")
     @PostMapping("courses")
-    public Map selectCourse(@Valid @RequestBody Course course) {
+    public Course selectCourse(@Valid @RequestBody Course course) {
         courseService.listCourses(responseComponent.getUid()).forEach(c -> {
             if (c.getName().equals(course.getName())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
@@ -51,12 +51,12 @@ public class TeacherController {
         course.setTeacher(teacherService.getTeacher(responseComponent.getUid()));
         courseService.addCourse(course);
         course.setTeacher(teacherService.getTeacher(responseComponent.getUid()));
-        return Map.of("course", course);
+        return course;
     }
 
     @ApiOperation("更新课程要求")
     @PatchMapping("courses")
-    public Map updateCourse(@Valid @RequestBody Course course) {
+    public Course updateCourse(@Valid @RequestBody Course course) {
         Course c = courseService.getCourse(course.getId());
         if (c == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "抱歉，您想要修改的课程不存在");
@@ -64,27 +64,27 @@ public class TeacherController {
         c.setCutOffMark(course.getCutOffMark());
         c.setWeight(course.getWeight());
         courseService.updateCourse(c);
-        return Map.of("course", c);
+        return c;
     }
 
     @ApiOperation("删除课程")
     @DeleteMapping("courses/{cid}")
-    public Map deleteCourses(@PathVariable int cid) {
+    public Integer deleteCourses(@PathVariable int cid) {
         courseService.deleteCourse(cid);
-        return Map.of("msg", "0");
+        return 0;
     }
 
     // ----------------Student----------------
 
     @ApiOperation("查看所有学生")
     @GetMapping("students")
-    public Map listStudents() {
-        return Map.of("students", studentService.listStudents());
+    public List<Student> listStudents() {
+        return studentService.listStudents();
     }
 
     @ApiOperation("提前选择学生")
     @PutMapping("students/{sid}")
-    public Map selectStudent(@PathVariable int sid) {
+    public Student selectStudent(@PathVariable int sid) {
         Teacher teacher = teacherService.getTeacher(responseComponent.getUid());
         if (studentService.getStudent(sid) == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "抱歉，您添加的学生不存在");
@@ -100,12 +100,12 @@ public class TeacherController {
         Student student = studentService.getStudent(sid);
         student.setTeacher(teacher);
         studentService.updateStudent(student);
-        return Map.of("student", student);
+        return student;
     }
 
     @ApiOperation("为课程添加学生")
     @PostMapping("courses/{cid}/student/{grade}")
-    public Map addStudent(@PathVariable int cid, @RequestBody Student student,
+    public Student addStudent(@PathVariable int cid, @RequestBody Student student,
                           @PathVariable double grade) {
         Course course = courseService.getCourse(cid);
         if (course == null) {
@@ -123,78 +123,72 @@ public class TeacherController {
             elective.setCourse(courseService.getCourse(cid));
             elective.setGrade(grade);
             courseService.addElective(elective);
-            return Map.of("student", student);
+            return student;
         } else {
             Elective elective = new Elective();
             elective.setStudent(s);
             elective.setCourse(courseService.getCourse(cid));
             elective.setGrade(grade);
             courseService.addElective(elective);
-            return Map.of("student", s);
+            return s;
         }
     }
 
     @ApiOperation("删除学生")
     @DeleteMapping("students/{sid}")
-    public Map deleteStudent(@PathVariable int sid) {
+    public Integer deleteStudent(@PathVariable int sid) {
         studentService.deleteStudent(sid);
-        return Map.of("msg", "0");
+        return 0;
     }
 
     @ApiOperation("查询某课程学生")
     @GetMapping("courses/{cid}/students")
-    public Map listStudents(@PathVariable int cid) {
-        return Map.of("students", studentService.listStudentsByCourse(cid));
+    public List<Student> listStudents(@PathVariable int cid) {
+        return studentService.listStudentsByCourse(cid);
     }
 
     @ApiOperation("根据姓名查询学生")
     @GetMapping("students/{sname}")
-    public Map getStudent(@PathVariable String sname) {
-        return Map.of("student", studentService.getStudent(sname));
+    public Student getStudent(@PathVariable String sname) {
+        return studentService.getStudent(sname);
     }
 
     @ApiOperation("互选成功学生列表")
     @GetMapping("selectedstudents")
-    public Map listSelectedStudent() {
+    public List<Student> listSelectedStudent() {
         List<Student> students = studentService.listStudents(responseComponent.getUid());
-        return Map.of("students", students);
+        return students;
     }
 
     // ----------------Direction----------------
 
-    @ApiOperation("查看所有学生可选方向")
-    @GetMapping("directions")
-    public Map listDirections() {
-        return Map.of("directions", studentService.listDirections());
-    }
-
     @ApiOperation("增加方向")
     @PostMapping("directions")
-    public Map addDirection(@Valid @RequestBody Direction direction) {
+    public Direction addDirection(@Valid @RequestBody Direction direction) {
         studentService.listDirections().forEach(d -> {
             if (d.getName().equals(direction.getName())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                         "此方向已经存在了，再换个其他方向吧");
             }
         });
-        return Map.of("direction", studentService.addDirection(direction));
+        return studentService.addDirection(direction);
     }
 
     @ApiOperation("修改方向")
     @PatchMapping("directions")
-    public Map updateDirection(@Valid @RequestBody Direction direction) {
+    public Direction updateDirection(@Valid @RequestBody Direction direction) {
         Direction d = studentService.getDirection(direction.getId());
         if (d == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "该方向不存在");
         }
         d.setName(direction.getName());
-        return Map.of("direction", studentService.updateDirection(d));
+        return updateDirection(d);
     }
 
     // ----------------Teacher----------------
 
     @ApiOperation("修改个人要求，如最低成绩，设置人数等")
-    @PatchMapping("requirements/")
+    @PatchMapping("requirements")
     public Teacher updateRequirements(@Valid @RequestBody Teacher teacher) {
         Teacher t = teacherService.getTeacher(responseComponent.getUid());
         t.setMinRanking(teacher.getMinRanking());

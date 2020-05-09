@@ -1,3 +1,8 @@
+GET http://localhost:8080/api/directions
+Accept: application/json
+authorization: {{token}}
+
+### 列出所有方向
 GET http://localhost:8080/api/courses
 Accept: application/json
 authorization: {{token}}

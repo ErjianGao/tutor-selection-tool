@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -36,15 +37,15 @@ public class AdminController {
 
     @ApiOperation("测试用，欢迎页")
     @GetMapping("home")
-    public Map welcome() {
+    public String welcome() {
         log.debug("{}", responseComponent.getUid());
         log.debug("{}", responseComponent.getRole());
-        return Map.of("msg", "欢迎光临，管理员");
+        return "欢迎光临，管理员";
     }
 
     @ApiOperation("添加老师")
     @PostMapping("teachers")
-    public Map addTeacher(@RequestBody Teacher teacher) {
+    public Teacher addTeacher(@RequestBody Teacher teacher) {
         if (teacherService.getTeacher(teacher.getId()) != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "该老师已经存在，不必反复添加！");
         }
@@ -52,23 +53,29 @@ public class AdminController {
         teacher.setPassword(encoder.encode(teacher.getIdentityNo()));
         teacher.setRole(User.Role.TEACHER);
         teacherService.addTeacher(teacher);
-        return Map.of("teacher", teacher);
+        return teacher;
     }
 
     @ApiOperation("删除老师")
     @DeleteMapping("teachers/{tid}")
-    public Map deleteTeacher(@PathVariable int tid) {
+    public Integer deleteTeacher(@PathVariable int tid) {
         teacherService.deleteTeacher(tid);
-        return Map.of("msg", "0");
+        return 0;
+    }
+
+    @ApiOperation("查看所有老师")
+    @GetMapping("teachers")
+    public List<Teacher> getTeacher() {
+        return teacherService.listTeachers();
     }
 
     @ApiOperation("添加课程")
     @PostMapping("courses")
-    public Map addCourse(@RequestBody Course course, @PathVariable String tid) {
+    public Course addCourse(@RequestBody Course course, @PathVariable String tid) {
         if (courseService.getCourse(course.getId()) != null) {
             throw new ResponseStatusException((HttpStatus.BAD_REQUEST), "该课程已经存在，不必反复添加！");
         }
         courseService.addCourse(course);
-        return Map.of("course", course);
+        return course;
     }
 }

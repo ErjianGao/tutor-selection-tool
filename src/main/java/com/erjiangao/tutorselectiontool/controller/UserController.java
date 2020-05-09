@@ -1,11 +1,15 @@
 package com.erjiangao.tutorselectiontool.controller;
 
 import com.erjiangao.tutorselectiontool.component.ResponseComponent;
+import com.erjiangao.tutorselectiontool.entity.Course;
+import com.erjiangao.tutorselectiontool.entity.Direction;
 import com.erjiangao.tutorselectiontool.entity.User;
 import com.erjiangao.tutorselectiontool.service.CourseService;
 import com.erjiangao.tutorselectiontool.service.StudentService;
 import com.erjiangao.tutorselectiontool.service.UserService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -32,19 +37,25 @@ public class UserController {
 
     @ApiOperation("查看个人信息")
     @GetMapping("profile")
-    public Map getUser() {
-        return Map.of("user", userService.getUser(responseComponent.getUid()));
+    public User getUser() {
+        return userService.getUser(responseComponent.getUid());
     }
 
     @ApiOperation("查看所有开设课程信息")
     @GetMapping("courses")
-    public Map listCourses() {
-        return Map.of("courses", courseService.listCourses());
+    public List<Course> listCourses() {
+        return courseService.listCourses();
+    }
+
+    @ApiOperation("查看所有学生可选方向")
+    @GetMapping("directions")
+    public List<Direction> listDirections() {
+        return studentService.listDirections();
     }
 
     @ApiOperation("修改密码")
     @PatchMapping("settings/password")
-    public Map updatePassword(@RequestBody Map<String, String> user) {
+    public User updatePassword(@RequestBody Map<String, String> user) {
         String oldPassword = user.get("oldPassword");
         String newPassword = user.get("newPassword");
         String confirmNewPassword = user.get("confirmNewPassword");
@@ -57,6 +68,6 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "你前后两次输入密码不同");
         }
         User u = userService.updatePassword(responseComponent.getUid(), newPassword);
-        return Map.of("user", u);
+        return u;
     }
 }

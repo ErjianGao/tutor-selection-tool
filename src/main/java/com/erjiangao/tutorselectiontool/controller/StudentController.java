@@ -27,21 +27,21 @@ public class StudentController {
 
     @ApiOperation("查看个人信息")
     @GetMapping("profile")
-    public Map getStudent() {
-        return Map.of("student", studentService.getStudent(responseComponent.getUid()));
+    public Student getStudent() {
+        return studentService.getStudent(responseComponent.getUid());
     }
 
     @ApiOperation("修改个人资料")
     @PatchMapping("settings")
-    public Map updateStudent(@RequestBody Student student) {
-        return Map.of("student", studentService.updateStudent(student));
+    public Student updateStudent(@RequestBody Student student) {
+        return studentService.updateStudent(student);
     }
 
     // ----------------Teacher----------------
 
     @ApiOperation("选择导师")
     @PatchMapping("teachers/{tid}")
-    public Map selectTeacher(@PathVariable int tid) {
+    public Teacher selectTeacher(@PathVariable int tid) {
         Teacher teacher = teacherService.getTeacher(tid);
         int countStudent = studentService.countStudents(tid);
         if (countStudent >= teacher.getMaxStudentNumber()) {
@@ -53,6 +53,6 @@ public class StudentController {
             student.setTeacher(teacher);
             studentService.updateStudent(student);
         }
-        return Map.of("teacher", teacher);
+        return teacher;
     }
 }
