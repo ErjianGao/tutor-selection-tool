@@ -28,15 +28,14 @@ public class UserService {
                 .orElse(null);
     }
 
+    public User updatePassword(int uid, String newPwd) {
+        User user = getUser(uid);
+        user.setPassword(encoder.encode(newPwd));
+        return user;
+    }
+
     // ----------------Admin CURD----------------
     public void addAdmin(Admin admin) {
         adminRepository.save(admin);
-    }
-
-    public Admin updatePassword(int uid, String newPwd) {
-        Admin admin = adminRepository.findById(uid)
-                .orElseThrow();
-        admin.setPassword(encoder.encode(newPwd));
-        return admin;
     }
 }

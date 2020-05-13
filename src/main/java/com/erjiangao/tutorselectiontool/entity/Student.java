@@ -26,6 +26,6 @@ public class Student extends User {
     private Teacher teacher;
     @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
     private List<Elective> electives;
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
     private List<Direction> directions;
 }

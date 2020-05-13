@@ -170,17 +170,26 @@ public class StudentService {
                 .orElse(null);
     }
 
+    public Direction getDirection(String name) {
+        return directionRepository.findByName(name)
+                .orElse(null);
+    }
+
     public List<Direction> listDirections() {
         return directionRepository.findAll();
     }
 
     public List<Direction> listDirections(int sid) {
-        return directionRepository.findAll();
+        return directionRepository.findByStudentId(sid).orElse(List.of());
     }
 
     public Direction updateDirection(Direction direction) {
         directionRepository.save(direction);
         return direction;
+    }
+
+    public void deleteDirection(int did) {
+        directionRepository.deleteById(did);
     }
 
     // ----------------Electives CURD----------------

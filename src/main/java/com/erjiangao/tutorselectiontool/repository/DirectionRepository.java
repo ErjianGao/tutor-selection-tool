@@ -9,4 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface DirectionRepository extends BaseRepository<Direction, Integer> {
+    Optional<Direction> findByName(String name);
+
+    Optional<List<Direction>> findByStudentId(int sid);
 }

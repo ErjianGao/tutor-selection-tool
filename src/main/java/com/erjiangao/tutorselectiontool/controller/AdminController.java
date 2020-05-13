@@ -63,11 +63,7 @@ public class AdminController {
         return 0;
     }
 
-    @ApiOperation("查看所有老师")
-    @GetMapping("teachers")
-    public List<Teacher> getTeacher() {
-        return teacherService.listTeachers();
-    }
+
 
     @ApiOperation("添加课程")
     @PostMapping("courses")
