@@ -67,9 +67,9 @@ public class StudentController {
     }
 
     @ApiOperation("查看个人方向")
-    @GetMapping("directions")
-    public List<Direction> getDirections() {
-        return studentService.listDirections(responseComponent.getUid());
+    @GetMapping("/{sid}/directions")
+    public List<Direction> getDirections(@PathVariable int sid) {
+        return studentService.listDirections(sid);
     }
 
     // ----------------Teacher----------------

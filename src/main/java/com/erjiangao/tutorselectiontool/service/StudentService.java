@@ -73,7 +73,7 @@ public class StudentService {
     }
 
     public int countStudents(int tid) {
-        return (int)studentRepository.count();
+        return studentService.listStudents(tid).size();
     }
 
     public Student updateStudent(Student student) {

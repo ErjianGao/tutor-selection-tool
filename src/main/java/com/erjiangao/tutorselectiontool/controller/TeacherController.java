@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +51,6 @@ public class TeacherController {
         });
         course.setTeacher(teacherService.getTeacher(responseComponent.getUid()));
         courseService.addCourse(course);
-        course.setTeacher(teacherService.getTeacher(responseComponent.getUid()));
         return course;
     }
 
@@ -95,7 +95,7 @@ public class TeacherController {
 
         int countStudents = studentService.countStudents(responseComponent.getUid());
         if (countStudents >= teacher.getMaxStudentNumber()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "您的学生选择数量已达上限");
+            throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, "您的学生选择数量已达上限");
         }
         Student student = studentService.getStudent(sid);
         student.setTeacher(teacher);
@@ -103,10 +103,18 @@ public class TeacherController {
         return student;
     }
 
+    @ApiOperation("取消互选学生")
+    @DeleteMapping("selectedstudents/{sid}")
+    public void cancelSelectedStudent(@PathVariable int sid) {
+        Student student = studentService.getStudent(sid);
+        student.setTeacher(null);
+        studentService.updateStudent(student);
+    }
+
     @ApiOperation("为课程添加学生")
     @PostMapping("courses/{cid}/student/{grade}")
     public Student addStudent(@PathVariable int cid, @RequestBody Student student,
-                          @PathVariable double grade) {
+                              @PathVariable double grade) {
         Course course = courseService.getCourse(cid);
         if (course == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "抱歉，课程不存在");
@@ -132,6 +140,77 @@ public class TeacherController {
             courseService.addElective(elective);
             return s;
         }
+    }
+
+    @ApiOperation("为课程批量添加学生")
+    @PostMapping("courses/{cid}/students")
+    public List<Student> addStudent(@PathVariable int cid, @RequestBody List<Student> students) {
+        Course course = courseService.getCourse(cid);
+        if (course == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "抱歉，课程不存在");
+        }
+        List<Student> newStudents = new ArrayList<>();
+        students.forEach(student -> {
+            Student s = studentService.getStudentByIdentityNo(student.getIdentityNo());
+            List<Elective> electives = student.getElectives();
+            Elective e = electives
+                    .stream()
+                    .filter(elective -> elective.getCourse().getId() == cid)
+                    .findFirst()
+                    .orElse(null);
+            if (e == null) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "你没有添加课程成绩信息");
+            }
+            double grade = e.getGrade();
+
+            // 如果该学生不存在
+            if (s == null) {
+                student.setRole(User.Role.STUDENT);
+                student.setPassword(encoder.encode(student.getIdentityNo()));
+                studentService.addStudent(student);
+
+                Elective elective = new Elective();
+                elective.setStudent(student);
+                elective.setCourse(courseService.getCourse(cid));
+                elective.setGrade(grade);
+                courseService.addElective(elective);
+                newStudents.add(student);
+            } else {
+                Elective elective = new Elective();
+                elective.setStudent(s);
+                elective.setCourse(courseService.getCourse(cid));
+                elective.setGrade(grade);
+                courseService.addElective(elective);
+                newStudents.add(s);
+            }
+        });
+        return newStudents;
+    }
+
+    @ApiOperation("批量添加选课记录")
+    @PostMapping("students")
+    public void addStudents(@RequestBody List<Elective> electives) {
+        electives.forEach(elective -> {
+            Student student = elective.getStudent();
+            Student s = studentService.getStudentByIdentityNo(student.getIdentityNo());
+            Course c = courseService.getCourse(elective.getCourse().getId());
+            if (c == null) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "课程不能为空");
+            }
+            Elective e = new Elective();
+            // 如果学生为空
+            if (s == null) {
+                student.setRole(User.Role.STUDENT);
+                student.setPassword(encoder.encode(student.getIdentityNo()));
+                studentService.addStudent(student);
+                e.setStudent(student);
+            } else {
+                e.setStudent(s);
+            }
+            e.setGrade(elective.getGrade());
+            e.setCourse(c);
+            courseService.addElective(e);
+        });
     }
 
     @ApiOperation("删除学生")
