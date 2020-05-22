@@ -3,10 +3,7 @@
 <a href="https://www.oracle.com/java/" target="_blank"><img src="https://img.shields.io/badge/language-java-orange.svg"></a>
 <a href="#License"><img src="https://img.shields.io/badge/license-MIT-green.svg"></a>
 
-
-<a href=""> <img src="https://visitor-count-badge.herokuapp.com/total.svg?repo_id=ErjianGao.tutor-selection-tool"></a> 
-<a href=""><img src="https://visitor-count-badge.herokuapp.com/today.svg?repo_id=ErjianGao.tutor-selection-tool"></a>
-
+![visitors](https://visitor-badge.glitch.me/badge?page_id=ErjianGao.tutor-selection-tool)
 
 [中文 Chinese](https://github.com/ErjianGao/tutor-selection-tool/blob/master/README.cn.md)
 
