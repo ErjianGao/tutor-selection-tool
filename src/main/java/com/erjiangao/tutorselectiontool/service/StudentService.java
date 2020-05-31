@@ -108,7 +108,7 @@ public class StudentService {
     // 查询排名
     public int getweightedRank(int sid, int tid) {
         Student student = studentService.getStudent(sid);
-        Teacher teacher = student.getTeacher();
+        Teacher teacher = teacherService.getTeacher(tid);
         // 得到所有学生的序列，按成绩排序
         List<Student> students = listRankedStudents(teacher.getId());
         int weightedRank = 0;

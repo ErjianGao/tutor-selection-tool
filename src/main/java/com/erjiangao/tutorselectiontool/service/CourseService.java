@@ -71,6 +71,11 @@ public class CourseService {
                 .orElse(List.of());
     }
 
+    public Elective updateElective(Elective elective) {
+        electiveRepository.save(elective);
+        return elective;
+    }
+
     // ----------------Teacher select course Service----------------
     public void addCourseByTeacherId(Course course, int tid) {
         Teacher teacher = teacherService.getTeacher(tid);
