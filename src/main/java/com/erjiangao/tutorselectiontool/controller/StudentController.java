@@ -63,7 +63,8 @@ public class StudentController {
                 studentService.updateDirection(newDirection);
             }
         });
-        return studentService.getStudent(s.getId()).getDirections();
+        // 这里要使用单独声明的服务，否则可能会出现序列化的异常
+        return studentService.listDirections();
     }
 
     @ApiOperation("查看个人方向")
