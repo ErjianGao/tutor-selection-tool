@@ -9,10 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -154,7 +151,7 @@ public class StudentService {
         });
         return tempGradeMap.entrySet()
                 .stream()
-                .sorted(Map.Entry.comparingByValue())
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
@@ -196,5 +193,9 @@ public class StudentService {
     
     public List<Elective> listElectives(int sid) {
         return electiveRepository.findElectivesByStudent_Id(sid).orElse(List.of());
+    }
+
+    public void deleteElective(int eid) {
+        electiveRepository.deleteById(eid);
     }
 }
