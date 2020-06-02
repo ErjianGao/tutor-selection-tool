@@ -6,6 +6,7 @@ import com.erjiangao.tutorselectiontool.service.CourseService;
 import com.erjiangao.tutorselectiontool.service.StudentService;
 import com.erjiangao.tutorselectiontool.service.TeacherService;
 import io.swagger.annotations.ApiOperation;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/teacher/")
@@ -82,6 +84,22 @@ public class TeacherController {
         return studentService.listStudents();
     }
 
+    @ApiOperation("查看老师导入的学生")
+    @GetMapping("{tid}/students")
+    public List<Student> listImportedStudents(@PathVariable int tid) {
+        Teacher teacher = teacherService.getTeacher(tid);
+        // 先拿到老师选择的课程
+        List<Course> courses = teacher.getCourses();
+        List<Student> students = new ArrayList<Student>();
+        courses.forEach(c -> {
+            // 遍历每一门课程的选课记录
+            c.getElectives().forEach(elective -> {
+                students.add(elective.getStudent());
+            });
+        });
+        return students;
+    }
+
     @ApiOperation("提前选择学生")
     @PutMapping("students/{sid}")
     public Student selectStudent(@PathVariable int sid) {
@@ -111,124 +129,25 @@ public class TeacherController {
         studentService.updateStudent(student);
     }
 
-    // @ApiOperation("为课程添加学生")
-    // @PostMapping("courses/{cid}/student/{grade}")
-    // public Student addStudent(@PathVariable int cid, @RequestBody Student student,
-    //                           @PathVariable double grade) {
-    //     Course course = courseService.getCourse(cid);
-    //     if (course == null) {
-    //         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "抱歉，课程不存在");
-    //     }
-    //     Student s = studentService.getStudentByIdentityNo(student.getIdentityNo());
-    //     // 如果该学生不存在
-    //     if (s == null) {
-    //         student.setRole(User.Role.STUDENT);
-    //         student.setPassword(encoder.encode(student.getIdentityNo()));
-    //         studentService.addStudent(student);
-    //
-    //         Elective elective = new Elective();
-    //         elective.setStudent(student);
-    //         elective.setCourse(courseService.getCourse(cid));
-    //         elective.setGrade(grade);
-    //         courseService.addElective(elective);
-    //         return student;
-    //     } else {
-    //         Elective elective = new Elective();
-    //         elective.setStudent(s);
-    //         elective.setCourse(courseService.getCourse(cid));
-    //         elective.setGrade(grade);
-    //         courseService.addElective(elective);
-    //         return s;
-    //     }
-    // }
-
-    // @ApiOperation("为课程批量添加学生")
-    // @PostMapping("courses/{cid}/students")
-    // public List<Student> addStudent(@PathVariable int cid, @RequestBody List<Student> students) {
-    //     Course course = courseService.getCourse(cid);
-    //     if (course == null) {
-    //         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "抱歉，课程不存在");
-    //     }
-    //     List<Student> newStudents = new ArrayList<>();
-    //     students.forEach(student -> {
-    //         Student s = studentService.getStudentByIdentityNo(student.getIdentityNo());
-    //         List<Elective> electives = student.getElectives();
-    //         Elective e = electives
-    //                 .stream()
-    //                 .filter(elective -> elective.getCourse().getId() == cid)
-    //                 .findFirst()
-    //                 .orElse(null);
-    //         if (e == null) {
-    //             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "你没有添加课程成绩信息");
-    //         }
-    //         double grade = e.getGrade();
-    //
-    //         // 如果该学生不存在
-    //         if (s == null) {
-    //             student.setRole(User.Role.STUDENT);
-    //             student.setPassword(encoder.encode(student.getIdentityNo()));
-    //             studentService.addStudent(student);
-    //
-    //             Elective elective = new Elective();
-    //             elective.setStudent(student);
-    //             elective.setCourse(courseService.getCourse(cid));
-    //             elective.setGrade(grade);
-    //             courseService.addElective(elective);
-    //             newStudents.add(student);
-    //         } else {
-    //             Elective elective = new Elective();
-    //             elective.setStudent(s);
-    //             elective.setCourse(courseService.getCourse(cid));
-    //             elective.setGrade(grade);
-    //             courseService.addElective(elective);
-    //             newStudents.add(s);
-    //         }
-    //     });
-    //     return newStudents;
-    // }
-
-    @ApiOperation("批量添加选课记录")
-    @PostMapping("students")
-    public void addStudents(@RequestBody List<Elective> electives) {
-        electives.forEach(elective -> {
-            Student student = elective.getStudent();
-            Student s = studentService.getStudentByIdentityNo(student.getIdentityNo());
-            Course c = courseService.getCourse(elective.getCourse().getId());
-            if (c == null) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "课程不能为空");
-            }
-            // Elective e = new Elective();
-            // 如果学生为空
-            if (s == null) {
-                student.setRole(User.Role.STUDENT);
-                student.setPassword(encoder.encode(student.getIdentityNo()));
-                studentService.addStudent(student);
-                Elective e = new Elective();
-                e.setStudent(student);
-                e.setCourse(c);
-                e.setGrade(elective.getGrade());
-                courseService.addElective(e);
-            }
-            else { // 如果学生不为空
-                // 找到选课记录中当前课程的记录
-                Elective e = s.getElectives()
-                        .stream()
-                        .filter(elective1 -> elective1.getCourse().equals(c))
-                        .findFirst()
-                        .orElse(null);
-                if (e == null) {
-                    Elective newElective = new Elective();
-                    newElective.setStudent(s);
-                    newElective.setGrade(elective.getGrade());
-                    newElective.setCourse(c);
-                    courseService.addElective(newElective);
-                } else {
-                    // 更新选课记录
-                    e.setGrade(elective.getGrade());
-                    courseService.updateElective(e);
+    @ApiOperation("删除导入的学生")
+    @DeleteMapping("{tid}/students/{sid}")
+    public Integer deleteImportedStudents(@PathVariable int tid, @PathVariable int sid) {
+        List<Course> courses = courseService.listCourses(tid);
+        courses.forEach(course -> {
+            course.getElectives().forEach(e -> {
+                if (e.getStudent().getId() == sid) {
+                    studentService.deleteElective(e.getId());
                 }
+            });
+        });
+        // 从选中的学生中同样删除
+        List<Student> selectedStudents = listSelectedStudent();
+        selectedStudents.forEach(selectedStudent -> {
+            if (selectedStudent.getId() == sid) {
+                cancelSelectedStudent(sid);
             }
         });
+        return 0;
     }
 
     @ApiOperation("删除学生")
@@ -255,6 +174,50 @@ public class TeacherController {
     public List<Student> listSelectedStudent() {
         List<Student> students = studentService.listStudents(responseComponent.getUid());
         return students;
+    }
+
+    // ----------------Elective----------------
+
+    @ApiOperation("批量添加选课记录")
+    @PostMapping("students")
+    public void addStudents(@RequestBody List<Elective> electives) {
+        electives.forEach(elective -> {
+            Student student = elective.getStudent();
+            Student s = studentService.getStudentByIdentityNo(student.getIdentityNo());
+            Course c = courseService.getCourse(elective.getCourse().getId());
+            if (c == null) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "课程不能为空");
+            }
+            // 如果学生为空
+            if (s == null) {
+                student.setRole(User.Role.STUDENT);
+                student.setPassword(encoder.encode(student.getIdentityNo()));
+                studentService.addStudent(student);
+                Elective e = new Elective();
+                e.setStudent(student);
+                e.setCourse(c);
+                e.setGrade(elective.getGrade());
+                courseService.addElective(e);
+            } else { // 如果学生不为空
+                // 找到选课记录中当前课程的记录
+                Elective e = s.getElectives()
+                        .stream()
+                        .filter(elective1 -> elective1.getCourse().equals(c))
+                        .findFirst()
+                        .orElse(null);
+                if (e == null) {
+                    Elective newElective = new Elective();
+                    newElective.setStudent(s);
+                    newElective.setGrade(elective.getGrade());
+                    newElective.setCourse(c);
+                    courseService.addElective(newElective);
+                } else {
+                    // 更新选课记录
+                    e.setGrade(elective.getGrade());
+                    courseService.updateElective(e);
+                }
+            }
+        });
     }
 
     // ----------------Direction----------------
