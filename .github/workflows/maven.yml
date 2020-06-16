@@ -62,13 +62,9 @@ jobs:
           script: |
             # 进入到项目文件夹中
             cd /home/erjiangao/services/tutor-selection-tool
-            # 停止原来的容器
-            docker stop $(docker ps -a -q)
-            # 删除掉原来的容器
-            docker rm $(docker ps -a -q)
-            # 删除掉原来的镜像
-            docker rmi $(docker images -f docker.pkg.github.com/erjiangao/tutor-selection-tool/tutor-selection-tool:latest -q)
             # 重新基于docker-compose.yml拉取镜像
             docker-compose pull
             # 如果文件名不叫docker-compose.yml，则加-f参数，基于指定文件执行后台启动
             docker-compose up -d
+            [ $(docker images -f dangling=true docker.pkg.github.com/erjiangao/tutor-selection-tool/tutor-selection-tool:latest -q) ] && \
+            docker rmi $(docker images -f dangling=true docker.pkg.github.com/erjiangao/tutor-selection-tool/tutor-selection-tool:latest -q)
