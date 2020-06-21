@@ -5,7 +5,9 @@
 
 ![visitors](https://visitor-badge.glitch.me/badge?page_id=ErjianGao.tutor-selection-tool)
 
-[中文 Chinese](https://github.com/ErjianGao/tutor-selection-tool/blob/master/README.cn.md)
+Language: English | [中文](https://github.com/ErjianGao/tutor-selection-tool/blob/master/README.cn.md)
+
+[Front end address](https://github.com/ErjianGao/tutor-selection-tool-vue)
 
 ## Table of Contents
 
