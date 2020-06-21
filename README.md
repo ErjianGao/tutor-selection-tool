@@ -85,11 +85,12 @@ The following is required to be installed in your machine
 
 - Intellij IDEA - v2020.1 EAP
 - OpenJDK - v11.0.6
-- Springboot - v2.2.5
+- Spring Boot - v2.2.5
 - Junit - v5
 - Slf4j
 - Lombok
 - MySQL - v8.0
+- Spring Data JPA - v2.2.5
 - Maven - v3.6.1
 - Git - v2.24
 
@@ -99,8 +100,6 @@ The following is required to be installed in your machine
 
 - Server: Tomcat v9.0.27
 - Database: MySQL - v8.0
-- Persistence Layer: JPA
-  spring-data-jpa - v2.2.5
 
 ### Remote
 
