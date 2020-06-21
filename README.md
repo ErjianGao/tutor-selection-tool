@@ -7,7 +7,7 @@
 
 Language: English | [中文](https://github.com/ErjianGao/tutor-selection-tool/blob/master/README.cn.md)
 
-[Front end address](https://github.com/ErjianGao/tutor-selection-tool-vue)
+[Front-end address](https://github.com/ErjianGao/tutor-selection-tool-vue)
 
 ## Table of Contents
 
