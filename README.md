@@ -1,9 +1,14 @@
 # Graduation design tutor selection tool
 
-<a href="https://www.oracle.com/java/" target="_blank"><img src="https://img.shields.io/badge/language-java-orange.svg"></a>
-<a href="#License"><img src="https://img.shields.io/badge/license-MIT-green.svg"></a>
+<p align="center">
+  <img width="320px" src="http://picbed.erjiangao.com/img/20200624105118.png"/>
+</p>
 
-![visitors](https://visitor-badge.glitch.me/badge?page_id=ErjianGao.tutor-selection-tool)
+<p align="center">
+  <a href="https://www.oracle.com/java/" target="_blank"><img src="https://img.shields.io/badge/language-java-orange.svg"></a>
+  <a href="#License"><img src="https://img.shields.io/badge/license-MIT-green.svg"></a>
+  <a><img src="https://visitor-badge.glitch.me/badge?page_id=ErjianGao.tutor-selection-tool"></a>
+</p>
 
 Language: English | [中文](https://github.com/ErjianGao/tutor-selection-tool/blob/master/README.cn.md)
 
