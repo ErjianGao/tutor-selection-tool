@@ -1,14 +1,14 @@
-# 毕业设计导师选择工具
+<p align="center">
+  <img width="320px" src="http://picbed.erjiangao.com/img/20200624105118.png"/>
+</p>
 
-<a href="https://www.oracle.com/java/" target="_blank"><img src="https://img.shields.io/badge/language-java-orange.svg"></a>
-<a href="#License"><img src="https://img.shields.io/badge/license-MIT-green.svg"></a>
+<p align="center">
+  <a href="https://www.oracle.com/java/" target="_blank"><img src="https://img.shields.io/badge/language-java-orange.svg"></a>
+  <a href="#License"><img src="https://img.shields.io/badge/license-MIT-green.svg"></a>
+  <a><img src="https://visitor-badge.glitch.me/badge?page_id=ErjianGao.tutor-selection-tool"></a>
+</p>
 
-<!-- 
-<a href=""> <img src="https://visitor-count-badge.herokuapp.com/total.svg?repo_id=ErjianGao.tutor-selection-tool"></a> 
-<a href=""><img src="https://visitor-count-badge.herokuapp.com/today.svg?repo_id=ErjianGao.tutor-selection-tool"></a>
--->
-
-[英文 English](https://github.com/ErjianGao/tutor-selection-tool)
+语言：[English](https://github.com/ErjianGao/tutor-selection-tool) | 中文
 
 ## 目录
 
