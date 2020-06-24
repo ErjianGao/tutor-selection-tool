@@ -63,8 +63,6 @@ public class AdminController {
         return 0;
     }
 
-
-
     @ApiOperation("添加课程")
     @PostMapping("courses")
     public Course addCourse(@RequestBody Course course, @PathVariable String tid) {
