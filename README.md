@@ -1,5 +1,3 @@
-# Graduation design tutor selection tool
-
 <p align="center">
   <img width="320px" src="http://picbed.erjiangao.com/img/20200624105118.png"/>
 </p>
