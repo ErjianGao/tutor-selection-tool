@@ -31,7 +31,7 @@ Language: English | [中文](https://github.com/ErjianGao/tutor-selection-tool/b
 
 ## Background
 
-When students are seniors, they need to choose their graduation design tutor to help them complete their graduation design. And the teachers have their rights to determine which students can choose them as tutor. So they can set requirements, and only the students who meet all of the requirements the teacher set can they choose the teacher as their graduation design tutor. And of course, different teachers have different requirements and the maximum number of students they can help. 
+When students are seniors, they need to choose their graduation design tutor to help them complete their graduation design. And the teachers have their rights to determine which students can choose them as tutor. So they can set requirements, and only the students who meet all of the requirements the teacher set can choose the teacher as their graduation design tutor. And of course, different teachers have different requirements and the maximum number of students they can help. 
 
 So the graduation design tutor selection tool is aiming to help students and tutors choose each other conveniently. Further more, this tool will first be tried to be used by Bo Wang, Lecturer in Software Engineering, Northeast Forestry University:school: and his students.
 
